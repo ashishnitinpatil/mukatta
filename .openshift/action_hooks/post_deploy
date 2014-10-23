@@ -4,10 +4,10 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-export PATH=$PATH:${OPENSHIFT_HOMEDIR}python/virtenv/bin/
+# export PATH=$PATH:${OPENSHIFT_HOMEDIR}python/virtenv/bin/
 # export PYTHON_EGG_CACHE=${OPENSHIFT_HOMEDIR}python/virtenv/lib/python-2.7/site-packages
 
-source ${OPENSHIFT_HOMEDIR}python/virtenv/bin/activate
+# source ${OPENSHIFT_HOMEDIR}python/virtenv/bin/activate
 
 echo "CDing into '$OPENSHIFT_REPO_DIR/wsgi'"
 cd ${OPENSHIFT_REPO_DIR}wsgi

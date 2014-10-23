@@ -1,3 +1,2 @@
 django==1.7
-mu-katta==1.0
 mysql-python==1.2.5
