@@ -9,11 +9,13 @@
 
 # source ${OPENSHIFT_HOMEDIR}python/virtenv/bin/activate
 
-echo "CDing into '$OPENSHIFT_REPO_DIR/wsgi'"
-cd ${OPENSHIFT_REPO_DIR}wsgi
+source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 
-echo "Executing 'python manage.py syncdb --noinput'"
-python manage.py syncdb --noinput
- 
-echo "Executing 'python manage.py collectstatic --noinput -v0'"
-python manage.py collectstatic --noinput -v0
+# echo "CDing into '$OPENSHIFT_REPO_DIR/wsgi'"
+# cd ${OPENSHIFT_REPO_DIR}wsgi
+
+echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py syncdb --noinput'"
+python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --noinput
+
+echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py collectstatic --noinput'"
+python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
