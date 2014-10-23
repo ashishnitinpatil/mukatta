@@ -5,7 +5,7 @@
 # ruby, etc.
 
 export PATH=$PATH:${OPENSHIFT_HOMEDIR}python/virtenv/bin/
-export PYTHON_EGG_CACHE=${OPENSHIFT_HOMEDIR}python/virtenv/lib/python-2.7/site-packages
+# export PYTHON_EGG_CACHE=${OPENSHIFT_HOMEDIR}python/virtenv/lib/python-2.7/site-packages
 
 source ${OPENSHIFT_HOMEDIR}python/virtenv/bin/activate
 
