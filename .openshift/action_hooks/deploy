@@ -4,16 +4,13 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-# export PATH=$PATH:~/$PYTHON/virtenv/bin/
-# export PYTHON_EGG_CACHE=~/$PYTHON/virtenv/lib/python2.7/site-packages
-export PYTHON_EGG_CACHE=${OPENSHIFT_HOME_DIR}python-2.6/virtenv/lib/python-2.6/site-packages
+export PATH=$PATH:${OPENSHIFT_HOMEDIR}python/virtenv/bin/
+export PYTHON_EGG_CACHE=${OPENSHIFT_HOMEDIR}python/virtenv/lib/python-2.7/site-packages
 
-# source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
-# source ~/$PYTHON/virtenv/bin/activate
-source $OPENSHIFT_HOMEDIR/python-2.7/virtenv/bin/activate
+source ${OPENSHIFT_HOMEDIR}python/virtenv/bin/activate
 
 echo "CDing into '$OPENSHIFT_REPO_DIR/wsgi'"
-cd $OPENSHIFT_REPO_DIR/wsgi
+cd ${OPENSHIFT_REPO_DIR}wsgi
 
 echo "Executing 'python manage.py syncdb --noinput'"
 python manage.py syncdb --noinput
