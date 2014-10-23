@@ -3,8 +3,12 @@
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
- 
-source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
+
+export PATH=$PATH:~/$PYTHON/virtenv/bin/
+export PYTHON_EGG_CACHE=~/$PYTHON/virtenv/lib/python2.7/site-packages
+
+# source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
+source ~/$PYTHON/virtenv/bin/activate
  
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/manage.py syncdb --noinput'"
 python "$OPENSHIFT_REPO_DIR"wsgi/manage.py syncdb --noinput
