@@ -3,4 +3,5 @@
 import djkatta.wsgi
 
 # reuse the application callable from djkatta.wsgi
+
 application = djkatta.wsgi.application

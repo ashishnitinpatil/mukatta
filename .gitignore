@@ -6,3 +6,6 @@
 .project
 .pydevproject
 venv/*
+Mu_Katta.egg-info/*
+build/*
+dist/*
