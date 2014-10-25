@@ -10,7 +10,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 import urlparse
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'coverage',
     'django_nose',
     'djkatta.apkatta',
 )
@@ -124,7 +127,7 @@ NOSE_ARGS = [
     '--cover-erase',
     '--cover-html',
     '--cover-html-dir=coverage',
-    '--cover-package=MkrSqr.accounts,MkrSqr.mkrsqr',
+    '--cover-package=djkatta.apkatta',
 ]
 # Tests are much faster since django uses in-memory database
 if 'test' in sys.argv:

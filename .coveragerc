@@ -1,0 +1,5 @@
+[run]
+include = *\djkatta\*
+omit = *\migrations\*
+       *\__init*
+       *\management\*

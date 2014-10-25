@@ -16,3 +16,9 @@ dist/*
 
 ## For passwords, etc.
 secrets.py
+
+
+## Coverage
+.coverage
+# .coveragerc
+coverage/
