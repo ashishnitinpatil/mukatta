@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/static/css/style.css" type="text/css" media="screen" />
+    <link rel="icon" href="/static/images/favicon.png" />
+	<link rel="shortcut icon" href="/static/images/favicon.png" />
+	<link rel="apple-touch-icon" href="/static/images/favicon.png"/>
+    {% block scripts_head %}{% endblock %}
+    <title>{% block title %}Mu Katta{% endblock %}</title>
+</head>
+<body>
+{% block body %}
+    {% if messages %}
+    <div>
+      <strong>Messages:</strong>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+{% endblock %}
+
+{% block scripts_body %}{% endblock %}
+</body>
+</html>

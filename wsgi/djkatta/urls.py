@@ -8,6 +8,14 @@ urlpatterns = patterns('',
 
     # Django admin urls
     url(r'^admin/', include(admin.site.urls)),
-    # App accounts urls
-    url(r'^/', include("djkatta.accounts.urls")),
+
+    
+    # Landing page - /
+    url(r"^$", "djkatta.accounts.views.index", name="index"),
+
+    # Home page - /home
+    url(r"^home/$", "djkatta.accounts.views.home", name="home"),
+
+    # "accounts" app urls
+    url(r'^/user', include("djkatta.accounts.urls")),
 )
