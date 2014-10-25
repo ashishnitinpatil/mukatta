@@ -5,7 +5,14 @@
 *~
 .project
 .pydevproject
+
+## virtualenv
 venv/*
+
+## Build associated
 Mu_Katta.egg-info/*
 build/*
 dist/*
+
+## For passwords, etc.
+secrets.py
