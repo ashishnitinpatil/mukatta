@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.db.models import signals
 
-# Create our own root user automatically.
+### The following code is openshift specific (required since no auto syncdb)
+# Create our own root user automatically...
 
 def create_rootuser(app, created_models, verbosity, **kwargs):
   if not settings.DEBUG:
@@ -28,3 +29,4 @@ signals.post_syncdb.connect(
     sender=auth_models,
     dispatch_uid='common.models.create_rootuser'
 )
+### End of openshift specific code
