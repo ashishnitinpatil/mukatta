@@ -7,9 +7,7 @@ def generate_random_string(chars=6):
     return '%x'%randrange(16**chars)
 
 
-class ApkattaTestCase(TestCase):
-    def setUp(self):
-        pass
+class ApkattaTests(TestCase):
 
     def test_landing_page(self):
         response = self.client.get('/')

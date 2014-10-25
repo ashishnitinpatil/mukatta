@@ -9,5 +9,5 @@ urlpatterns = patterns('',
     # Django admin urls
     url(r'^admin/', include(admin.site.urls)),
     # App apkatta urls
-    url(r'^/', include(apkatta.urls)),
+    url(r'^/', include("djkatta.apkatta.urls")),
 )

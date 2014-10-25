@@ -1,5 +1,5 @@
 [run]
-include = *\djkatta\*
+include = *\djkatta\apkatta\*
 omit = *\migrations\*
        *\__init*
        *\management\*
