@@ -31,6 +31,11 @@ ALLOWED_HOSTS = [
     'mukatta-anp.rhcloud.com',
 ]
 
+APPEND_SLASH = True
+
+LOGIN_URL          = '/'
+LOGIN_REDIRECT_URL = '/home/'
+LOGOUT_URL         = '/user/logout/'
 
 # Application definition
 
@@ -41,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'djkatta.apkatta',
 )
 
@@ -89,7 +95,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 
@@ -110,6 +116,35 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+# Use Django-nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+# Tell nose to measure coverage on only the mentioned apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-erase',
+    '--cover-html',
+    '--cover-html-dir=coverage',
+    '--cover-package=MkrSqr.accounts,MkrSqr.mkrsqr',
+]
+# Tests are much faster since django uses in-memory database
+if 'test' in sys.argv:
+    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
+
+# Needed for django admin accounts
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Admin Settings
+SERVER_EMAIL = 'mu.katta.anp@gmail.com'
+EMAIL_SUBJECT_PREFIX = "[MuKatta Admin] "
+ADMINS = (
+("Ashish Patil", "ashishnitinpatil@gmail.com"),
+)
+MANAGERS = (
+("Ashish Patil", "ashishnitinpatil@gmail.com"),
+)
+SEND_BROKEN_LINK_EMAILS = True
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.
