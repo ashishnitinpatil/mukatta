@@ -1,7 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Welcome to Mu Katta!</h1>
-    <div>
+    <h3>Welcome to Mu Katta!</h3>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="#about" role="tab" data-toggle="tab">About</a></li>
+        <li class="active"><a href="#login" role="tab" data-toggle="tab">Login</a></li>
+        <li><a href="#register" role="tab" data-toggle="tab">Register</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="about">
+            <p>Some content will come here soon!</p>
+        </div>
+        <div class="tab-pane" id="login">
+            <form action="/user/login/" method="POST">
+                
+            </form>
+        </div>
+        <div class="tab-pane" id="register">
+            <form action="/user/register/" method="POST">
+                
+            </form>
+        </div>
     </div>
 {% endblock %}
