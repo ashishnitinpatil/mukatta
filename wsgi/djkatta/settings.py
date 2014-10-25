@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
 
 APPEND_SLASH = True
 
-LOGIN_URL          = '/'
+LOGIN_URL          = '/user/login/'
 LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_URL         = '/user/logout/'
 
@@ -50,7 +50,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'coverage',
     'django_nose',
-    'djkatta.apkatta',
+    'djkatta.accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -127,7 +127,7 @@ NOSE_ARGS = [
     '--cover-erase',
     '--cover-html',
     '--cover-html-dir=coverage',
-    '--cover-package=djkatta.apkatta',
+    '--cover-package=djkatta.accounts',
 ]
 # Tests are much faster since django uses in-memory database
 if 'test' in sys.argv:
