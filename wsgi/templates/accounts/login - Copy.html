@@ -8,39 +8,42 @@
                 </div>
 
                 <div style="padding-top:30px" class="panel-body" >
-                    <form id="form" class="form-horizontal" role="form" action="{% url 'user:login' %}" method="post">
+                    <form id="loginform" class="form-horizontal" role="form" action="/user/login/" method="post">
                         {% csrf_token %}
-
-                        {% if form.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                            &times;
-                            </button>
-                            Incorrect username/password. Did you 
-                            <a href="{% url 'user:register' %}">register?!</a>
-                        </div>
-                        {% endif %}
-
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-user"></i>
                             </span>
-                            <input id="id_username" type="text" class="form-control" name="username" value="" placeholder="username" required="required">
+                            <input id="id_username" type="text" class="form-control" name="username" value="" placeholder="username" required>
                             <span class="input-group-addon">@mu-sigma.com</span>
                         </div>
+                        {% if login_form.username.errors %}
+                            <div id="login-alert" class="alert alert-danger col-sm-12">
+                            {% for error in login_form.username.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                            </div>
+                        {% endif %}
 
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-lock"></i>
                             </span>
-                            <input id="id_password" type="password" class="form-control" name="password" placeholder="password" required="required">
+                            <input id="id_password" type="password" class="form-control" name="password" placeholder="password" required>
                         </div>
+                        {% if login_form.password.errors %}
+                            <div id="login-alert" class="alert alert-danger col-sm-12">
+                            {% for error in login_form.password.errors %}
+                                {{ error|escape }}
+                            {% endfor %}
+                            </div>
+                        {% endif %}
 
                         <div class="input-group">
                             <div class="checkbox">
                                 <label>
                                     <input id="id_login_rem" type="checkbox"
-                                name="login_rem" checked> Remember me
+                                name="remember" value="1"> Remember me
                                 </label>
                             </div>
                         </div>
@@ -48,7 +51,13 @@
                         <div style="margin-top:10px" class="form-group">
                             <!-- Button -->
                             <div class="col-sm-12 controls">
-                                <button type="submit" class="btn btn-success">Login</button>
+                                <a id="btn-login" href="#" class="btn btn-success"
+                                onclick="document.getElementById('loginform').submit(); return false;">Login</a><br>
+                                <!--
+                                <font style="font-size:85%;">
+                                    <a href="#">Forgot password?</a>
+                                </font>
+                                -->
                             </div>
                         </div>
 
@@ -56,7 +65,7 @@
                             <div class="col-md-12 control">
                                 <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
                                     Don't have an account? 
-                                    <a href="{% url 'user:register' %}">Sign Up Here!</a>
+                                    <a href="/user/register/">Sign Up Here!</a>
                                     <span style="float: right;">
                                         <a href="/about/">About this website</a>
                                     </span>

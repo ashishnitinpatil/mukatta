@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{# Load the tag library #}
+{% load bootstrap3 %}
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,23 +11,15 @@
 	<link rel="shortcut icon" href="/static/favicon.png" />
 	<link rel="apple-touch-icon" href="/static/favicon.png"/>
     <!-- Bootstrap core CSS -->
-    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/bootstrap.darkly.min.css" rel="stylesheet">
     <title>{% block title %}Mu Katta{% endblock %}</title>
     {% block scripts_head %}{% endblock %}
 </head>
 <body>
 {% block body %}
-    <div id="main_wrapper" class="container centered-text">
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+    <div id="main_wrapper" class="container">
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
 
     {% block content %}{% endblock %}
     </div>
@@ -33,9 +27,9 @@
 
 {% block scripts_body %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="static/jquery.min.js"></script>
+    <script src="/static/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 {% endblock %}
 </body>
 </html>

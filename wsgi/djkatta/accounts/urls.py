@@ -17,4 +17,6 @@ urlpatterns = patterns("djkatta.accounts.views",
     url(r'logout/$', logout, {'template_name': 'accounts/logout.html',
                               'next_page': settings.LOGIN_REDIRECT_URL},
                              name='logout'),
+    url(r'register/$', 'register', name='register'),
+    url(r'check_mail/$', 'check_mail', name='check_mail'),
 )

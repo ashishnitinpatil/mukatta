@@ -1,10 +1,5 @@
 from django.test import TestCase
-from random import randrange
-
-
-def generate_random_string(chars=6):
-    """Returns a random string of length `chars`"""
-    return '%x'%randrange(16**chars)
+from djkatta.accounts.utils import generate_random_string
 
 
 class AccountsTests(TestCase):

@@ -49,7 +49,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'coverage',
-    'django_nose',
+    # 'django_nose',
+    'bootstrap3',
     'djkatta.accounts',
 )
 
@@ -129,18 +130,18 @@ TEMPLATE_DIRS = (
 )
 
 # Use Django-nose to run all tests
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # Tell nose to measure coverage on only the mentioned apps
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-erase',
-    '--cover-html',
-    '--cover-html-dir=coverage',
-    '--cover-package=djkatta.accounts',
-]
+# NOSE_ARGS = [
+    # '--with-coverage',
+    # '--cover-erase',
+    # '--cover-html',
+    # '--cover-html-dir=coverage',
+    # '--cover-package=djkatta.accounts',
+# ]
 # Tests are much faster since django uses in-memory database
-if 'test' in sys.argv:
-    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
+# if 'test' in sys.argv:
+    # DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
 
 # Needed for django admin accounts
 AUTHENTICATION_BACKENDS = (
@@ -162,31 +163,91 @@ MANAGERS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
+# LOGGING = {
+    # 'version': 1,
+    # 'disable_existing_loggers': False,
+    # 'handlers': {
+        # 'mail_admins': {
+            # 'level': 'ERROR',
+            # 'class': 'django.utils.log.AdminEmailHandler'
+        # }
+    # },
+    # 'loggers': {
+        # 'django.request': {
+            # 'handlers': ['mail_admins'],
+            # 'level': 'ERROR',
+            # 'propagate': True,
+        # },
+    # }
+# }
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mu.katta.anp@gmail.com'
-EMAIL_HOST_PASSWORD = 'MuKatta.ANP' # Don't worry, this ain't the password
+EMAIL_HOST_PASSWORD = 'vfvkynkgxoodloaf' # Don't worry, this ain't the password
 DEFAULT_FROM_EMAIL = 'mu.katta.anp@gmail.com'
 
 # All secure (secrets, passwords, etc.) information goes into this file
 # For security purposes, this file won't be found under the public git repo
 import secrets
+
+# django Bootstrap3 settings
+BOOTSTRAP3 = {
+
+    # The URL to the jQuery JavaScript file
+    # 'jquery_url': '//code.jquery.com/jquery.min.js',
+    'jquery_url': '/static/jquery.min.js',
+
+    # The Bootstrap base URL
+    # 'base_url': '//netdna.bootstrapcdn.com/bootstrap/3.2.0/',
+    'base_url': '/static/bootstrap/',
+
+    # The complete URL to the Bootstrap CSS file (None means derive it from base_url)
+    'css_url': None,
+
+    # The complete URL to the Bootstrap CSS file (None means no theme)
+    'theme_url': None,
+
+    # The complete URL to the Bootstrap JavaScript file (None means derive it from base_url)
+    'javascript_url': None,
+
+    # Put JavaScript in the HEAD section of the HTML document (only relevant if you use bootstrap3.html)
+    'javascript_in_head': False,
+
+    # Include jQuery with Bootstrap JavaScript (affects django-bootstrap3 template tags)
+    'include_jquery': False,
+
+    # Label class to use in horizontal forms
+    'horizontal_label_class': 'col-md-2',
+
+    # Field class to use in horiozntal forms
+    'horizontal_field_class': 'col-md-4',
+
+    # Set HTML required attribute on required fields
+    'set_required': True,
+
+    # Set placeholder attributes to label if no placeholder is provided
+    'set_placeholder': True,
+
+    # Class to indicate required (better to set this in your Django form)
+    'required_css_class': '',
+
+    # Class to indicate error (better to set this in your Django form)
+    'error_css_class': 'has-error',
+
+    # Class to indicate success, meaning the field has valid input (better to set this in your Django form)
+    'success_css_class': 'has-success',
+
+    # Renderers (only set these if you have studied the source and understand the inner workings)
+    'formset_renderers':{
+        'default': 'bootstrap3.renderers.FormsetRenderer',
+    },
+    'form_renderers': {
+        'default': 'bootstrap3.renderers.FormRenderer',
+    },
+    'field_renderers': {
+        'default': 'bootstrap3.renderers.FieldRenderer',
+        'inline': 'bootstrap3.renderers.InlineFieldRenderer',
+    },
+}
