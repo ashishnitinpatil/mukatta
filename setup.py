@@ -8,5 +8,5 @@ setup(
     author='Ashish Patil',
     author_email='ashish.patil@mu-sigma.com',
     url='http://www.python.org/sigs/distutils-sig/',
-    install_requires=['Django==1.7','MySQL-python'],
+    install_requires=['Django==1.7','MySQL-python','django-bootstrap3'],
 )
