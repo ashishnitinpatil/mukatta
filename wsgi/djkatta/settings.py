@@ -48,7 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'coverage',
+    # 'coverage',
     # 'django_nose',
     'bootstrap3',
     'djkatta.accounts',
