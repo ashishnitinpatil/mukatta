@@ -1,0 +1,12 @@
+## Git commit all changes & then
+git push origin master
+
+## If it's not a hot deploy
+# Create a secrets.py
+cd $OPENSHIFT_REPO_DIR
+cd wsgi/djkatta
+touch secrets.py
+vim secrets.py
+# Syncdb & create a root user
+cd $OPENSHIFT_REPO_DIR
+python wsgi/manage.py syncdb

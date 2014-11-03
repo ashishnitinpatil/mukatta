@@ -19,4 +19,7 @@ urlpatterns = patterns("djkatta.accounts.views",
                              name='logout'),
     url(r'register/$', 'register', name='register'),
     url(r'check_mail/$', 'check_mail', name='check_mail'),
+    url(r'password_reset_form/$', 'password_change_form', name='password_change_form'),
+    url(r'password_reset_req/$', 'password_reset_req', name='password_reset_req'),
+    url(r'password_reset_success/$', 'password_reset_success', name='password_reset_success'),
 )

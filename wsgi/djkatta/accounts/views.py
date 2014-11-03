@@ -83,7 +83,7 @@ def register(request):
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                 )
-                # send_reg_mail("ashishnitinpatil@gmail.com", usernm, passwd)
+                # send_reg_mail(email, usernm, passwd)
                 return redirect(reverse('user:check_mail'))
     # else
     return render_to_response('accounts/register.html', locals(),RequestContext(request))

@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     # 'django_nose',
     'bootstrap3',
     'djkatta.accounts',
+    'djkatta.roomreq',
 )
 
 MIDDLEWARE_CLASSES = (
