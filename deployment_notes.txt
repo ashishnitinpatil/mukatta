@@ -2,6 +2,8 @@
 git push origin master
 
 ## If it's not a hot deploy
+# SSH into remote rhcloud instance
+rhc ssh -a mukatta
 # Create a secrets.py
 cd $OPENSHIFT_REPO_DIR
 cd wsgi/djkatta

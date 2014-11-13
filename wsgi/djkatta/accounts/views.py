@@ -166,8 +166,8 @@ def password_reset_req(request):
                     reset_req.valid_upto = datetime.today() + timedelta(days=1)
                     reset_req.save()
             except pass_reset_validb.DoesNotExist:
-                pass_reset_validb.objects.create(username=username)
-            send_pass_reset_mail(self.username, self.valid_hash)
+                reset_req = pass_reset_validb.objects.create(username=username)
+            send_pass_reset_mail(reset_req.username, reset_req.valid_hash)
             title = "Password reset"
             message = "Check your Mu Sigma email for further instructions!"
             return message_box(request, title, message)
