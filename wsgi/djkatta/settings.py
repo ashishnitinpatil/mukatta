@@ -104,7 +104,7 @@ USE_I18N = False
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -188,6 +188,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mu.katta.anp@gmail.com'
 EMAIL_HOST_PASSWORD = 'vfvkynkgxoodloaf' # Don't worry, this ain't the password
 DEFAULT_FROM_EMAIL = 'mu.katta.anp@gmail.com'
+# For development purposes (disable in production)
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 # All secure (secrets, passwords, etc.) information goes into this file
 # For security purposes, this file won't be found under the public git repo

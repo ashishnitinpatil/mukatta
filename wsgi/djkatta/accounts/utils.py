@@ -5,6 +5,7 @@ All awesome helpful functions go here.
 from random import randrange
 from django.core.mail import send_mail
 from django.conf import settings
+from datetime import datetime
 
 
 def generate_random_string(chars=6):
@@ -28,18 +29,29 @@ def get_email_from_username(usernm=""):
         return ""
 
 
-def send_reg_mail(to="", usernm="", passwd=""):
-    if to and passwd:
-        send_mail(
-            'Mu Katta - Registration successful!',
-            "\n".join([
+def send_pass_reset_mail(usernm="", valid_hash="", to="", reg=False):
+    if usernm and valid_hash:
+        if not to:
+            to = get_email_from_username(usernm)
+        url = "http://mukatta-anp.rhcloud.com/user/password_reset/{0}/{1}".format(usernm, valid_hash)
+        if reg:
+            message = "\n".join([
                 'Hello & welcome to Mu Katta!',
-                'Your registration was successful.',
+                'Your registration was successful!',
                 'Your username is %s'%usernm,
-                'Your password is %s'%passwd,
-            ]),
-            settings.SERVER_EMAIL,
-            [to,],
-            fail_silently=False
+                'To login, you\'ll have to first reset your password.',
+                'Goto this link to reset your password - %s'%url,
+            ])
+        else:
+            message = "\n".join([
+                'Hello!',
+                'Someone requested a password reset for your MuKatta account.',
+                'Simply ignore this email if it wasn\'t you.',
+                'Goto this link to reset your password - %s'%url,
+            ])
+
+        send_mail(
+            'Mu Katta - Registration successful!', message,
+            settings.SERVER_EMAIL, [to,], fail_silently=False
         )
         return True
