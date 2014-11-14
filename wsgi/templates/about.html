@@ -3,7 +3,7 @@
 {% block title %}About MuKatta{% endblock %}
 
 {% block body %}
-        <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 jumbotron" style="background-color:#222222;">
+        <div id="top" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 jumbotron" style="background-color:#222222;">
             <h2>About Mu Katta...
                 <span style="float:right">
                 <a class="btn btn-success" href="{% url 'user:login' %}" role="button">Sign In</a>
@@ -20,9 +20,9 @@
                 <a class="btn btn-primary btn-sm" href="#tech">Tech details</a>
             </p>
             <p style="font-size:16px;" id="info">
-                This is a free web app developed & maintained by <a href="">Ashish Nitin Patil</a>.<br>
+                This is a free web app developed & maintained by <a href="http://about.me/ashishnitinpatil" target="_blank">Ashish Nitin Patil</a>.<br>
                 It is exclusive to Mu Sigmans (official email id needed to register).<br>
-                <br><font style="color:red;"><b>Mu Katta is NOT an official website!</b></font><br>
+                <br><font style="color:red;" size="5;"><b>Mu Katta is NOT an official website!</b></font><br>
             </p>
 
             <h4 style="color:#00cc00;" id="what">Mu Katta is a simple attempt at easing the following problems...</h4>
@@ -38,6 +38,7 @@
                 Even though the website is <a href="https://github.com/ashishnitinpatil/mukatta">Open Sourced</a>, it is very secure.<br>
                 No personal information is asked (only Name, email id) to avoid any risk.<br>
                 I will carry out my duties as & when I get time (Mu Sigma...)<br>
+                For legalities, refer to the project <a href="https://github.com/ashishnitinpatil/mukatta/blob/master/licenses/LICENSE.txt">LICENSE</a>.<br>
             </p>
 
             <h4 style="color:#00cc00;" id="contact">Contact me...</h4>
@@ -57,9 +58,9 @@
                     <li><a href="https://vnitlostnfound.appspot.com">VNIT Lost n Found</a></li>
                     <li><a href="https://vnittimetable.appspot.com">VNIT Time Table Generator</a></li>
                 </ul>
-                For the nerds out there - <a href="https://github.com/ashishnitinpatil/mukatta">Github repo for this Open Source project!</a><br>
+                For the geeks out there, checkout the <a href="https://github.com/ashishnitinpatil/mukatta">Github repo for this Open Source project!</a><br>
 
             </p>
-
+            <a class="btn btn-primary btn-sm" href="#top">Back to top</a>
         </div>
 {% endblock %}
