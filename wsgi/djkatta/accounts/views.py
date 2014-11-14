@@ -17,21 +17,13 @@ from djkatta.accounts.utils import (
     generate_random_string, get_username_from_email, get_email_from_username,
     send_pass_reset_mail
 )
-import logging, pprint
+# import logging, pprint
 
 
 # template (DRY) for message box rendering
 def message_box(request=None, title="", message=""):
     return render_to_response('accounts/message_box.html', locals(),
                               RequestContext(request))
-
-
-@csrf_protect
-def index(request):
-    """Landing page."""
-    login_form = LoginForm(request.POST)
-    reg_form = RegistrationForm(request.POST)
-    return render_to_response('index.html', locals(), RequestContext(request))
 
 
 @csrf_protect
@@ -60,12 +52,6 @@ def login(request, *args, **kwargs):
             # logging.error(pprint.pprint([request.POST,form.cleaned_data]))
         # else
         return render_to_response('accounts/login.html',locals(),RequestContext(request))
-
-
-@login_required
-def home(request):
-    """User home"""
-    return render_to_response('accounts/home.html',{},RequestContext(request))
 
 
 @csrf_protect
@@ -109,11 +95,12 @@ def check_mail(request):
     return message_box(request, title, message)
 
 
+@login_required
 @csrf_protect
 def password_change_form(request):
     if not request.POST:
         form = PasswordChangeForm()
-        logging.error('pass change')
+        # logging.error('pass change')
         return render_to_response('accounts/password_change_form.html',
                                   locals(), RequestContext(request))
     else:
