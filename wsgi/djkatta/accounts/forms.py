@@ -6,7 +6,17 @@ class RegistrationForm(forms.Form):
     username   = forms.CharField(label="Username", max_length=30)
     first_name = forms.CharField(label="First Name", max_length=30)
     last_name  = forms.CharField(label="Last Name", max_length=30)
+    register_swear = forms.BooleanField(
+        label="I solemnly swear that I am up to no bad!",
+        required=False
+    )
 
+    def clean_register_swear(self):
+        swore = self.cleaned_data.get('register_swear')
+        if not swore:
+            raise forms.ValidationError("You need to swear! I am Sirius!")
+            return False
+        return True
 
 class LoginForm(forms.Form):
     username  = forms.CharField(label="Username", max_length=30)
