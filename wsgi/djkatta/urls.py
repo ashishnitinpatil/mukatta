@@ -11,6 +11,9 @@ urlpatterns = patterns('',
     # Home page - /home
     url(r"^home/$", "djkatta.views.home", name="home"),
 
+    # Home page - /home
+    url(r"^about/$", "djkatta.views.about", name="about"),
+
     # "accounts" app urls
     url(r'^user/', include("djkatta.accounts.urls", namespace='user')),
 )

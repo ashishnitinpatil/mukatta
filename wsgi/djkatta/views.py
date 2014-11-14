@@ -18,3 +18,8 @@ def index(request):
 def home(request):
     """User home"""
     return render_to_response('home.html', {}, RequestContext(request))
+
+
+def about(request):
+    """About this website"""
+    return render_to_response('about.html')

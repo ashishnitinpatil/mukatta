@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}About MuKatta{% endblock %}
+
+{% block body %}
+        <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 jumbotron" style="background-color:#222222;">
+            <h2>About Mu Katta...
+                <span style="float:right">
+                <a class="btn btn-success" href="{% url 'user:login' %}" role="button">Sign In</a>
+                <a class="btn btn-success" href="{% url 'user:register' %}" role="button">Register</a>
+                </span
+            </h2><hr>
+                
+            </p>
+            <p>
+                <a class="btn btn-primary btn-sm" href="#info">Info</a> |
+                <a class="btn btn-primary btn-sm" href="#what">Why MuKatta</a> |
+                <a class="btn btn-primary btn-sm" href="#privacy">Privacy & TnC</a> |
+                <a class="btn btn-primary btn-sm" href="#contact">Contact me</a> |
+                <a class="btn btn-primary btn-sm" href="#tech">Tech details</a>
+            </p>
+            <p style="font-size:16px;" id="info">
+                This is a free web app developed & maintained by <a href="">Ashish Nitin Patil</a>.<br>
+                It is exclusive to Mu Sigmans (official email id needed to register).<br>
+                <br><font style="color:red;"><b>Mu Katta is NOT an official website!</b></font><br>
+            </p>
+
+            <h4 style="color:#00cc00;" id="what">Mu Katta is a simple attempt at easing the following problems...</h4>
+            <p style="font-size:16px;">
+                Hunting for a room-mate or searching for a new place to move in?<br>
+                Want to carpool to work or share a cab to airport?<br>
+                Want to sell study material, household items, etc.?<br>
+            </p>
+
+            <h4 style="color:#00cc00;" id="privacy">Privacy & ToC...</h4>
+            <p style="font-size:16px;">
+                It's a helpful attempt at easing the pain of my fellow Mu Sigmans.<br>
+                Even though the website is <a href="https://github.com/ashishnitinpatil/mukatta">Open Sourced</a>, it is very secure.<br>
+                No personal information is asked (only Name, email id) to avoid any risk.<br>
+                I will carry out my duties as & when I get time (Mu Sigma...)<br>
+            </p>
+
+            <h4 style="color:#00cc00;" id="contact">Contact me...</h4>
+            <p style="font-size:16px;">
+                For feedback/suggestions, email me at ashishnitinpatil@gmail.com<br>
+                Please mention "Mu Katta" in the subject line!<br>
+            </p>
+            
+            <h4 style="color:#00cc00;" id="tech">Technical details...</h4>
+            <p style="font-size:16px;">
+                The web app is powered by the <a href="https://openshift.redhat.com">Open Shift</a> cloud platform by Red Hat.
+                <br>It runs on <a href="https://www.python.org">Python</a> & uses the <a href="https://www.djangoproject.com/">Django</a> web framework.<br>
+                <br>More useful web apps from me - 
+                <br><ul>
+                    <li><a href="https://vnitresanalyser.appspot.com">VNIT Result Analyser</a></li>
+                    <li><a href="https://vnitstudentnotifications.appspot.com">VNIT Student Notifications</a></li>
+                    <li><a href="https://vnitlostnfound.appspot.com">VNIT Lost n Found</a></li>
+                    <li><a href="https://vnittimetable.appspot.com">VNIT Time Table Generator</a></li>
+                </ul>
+                For the nerds out there - <a href="https://github.com/ashishnitinpatil/mukatta">Github repo for this Open Source project!</a><br>
+
+            </p>
+
+        </div>
+{% endblock %}
