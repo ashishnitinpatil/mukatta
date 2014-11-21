@@ -4,18 +4,22 @@
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
 
-# export PATH=$PATH:${OPENSHIFT_HOMEDIR}python/virtenv/bin/
-# export PYTHON_EGG_CACHE=${OPENSHIFT_HOMEDIR}python/virtenv/lib/python-2.7/site-packages
+export PATH=$PATH:${OPENSHIFT_HOMEDIR}python/virtenv/bin/
+export PYTHON_EGG_CACHE=${OPENSHIFT_HOMEDIR}python/virtenv/lib/python-2.7/site-packages
 
-# source ${OPENSHIFT_HOMEDIR}python/virtenv/bin/activate
+source ${OPENSHIFT_HOMEDIR}python/virtenv/bin/activate
 
 # source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
 
 # echo "CDing into '$OPENSHIFT_REPO_DIR/wsgi'"
 # cd ${OPENSHIFT_REPO_DIR}wsgi
 
-# echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py syncdb --noinput'"
-# python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --noinput
+echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py syncdb --noinput'"
+python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py syncdb --noinput
+echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py makemigrations'"
+python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py makemigrations
+echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py migrate'"
+python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py migrate
 
-# echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py collectstatic --noinput'"
-# python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
+echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/openshift/manage.py collectstatic --noinput'"
+python "$OPENSHIFT_REPO_DIR"wsgi/openshift/manage.py collectstatic --noinput
