@@ -1,0 +1,77 @@
+{% extends 'cabshare/base.html' %}
+
+{% block content %}
+        <div id="cabsharebox" style="margin-top: 50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        {% if new %}New{% else %}Update{% endif %} cab sharing requirement
+                    </div>
+                </div>
+
+                <div style="padding-top:30px" class="panel-body">
+                    {# Display the form #}
+                    {% if allowed %}
+                        {% if new %}
+                        <form id="form" action="{% url 'cabshare:new_post' %}" method="post" class="form-horizontal">
+                        {% else %}
+                        <form id="form" action="{% url 'cabshare:edit' %}" method="post" class="form-horizontal">
+                        {% endif %}
+                            {% csrf_token %}
+
+                            <div class="input-group form_concise">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-off"></i>
+                                </span>
+                                <span class="input-group-addon">Request status</span>
+                                <select id="id_req_open" class="form-control" name="req_open">
+                                    <option>Open</option>
+                                    <option title="This will hide the post from other users. A post can be re-opened!">Closed</option>
+                                </select>
+                            </div>
+
+
+                            <div class="input-group form_concise">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-earphone"></i>
+                                </span>
+                                <span class="input-group-addon">Contact number</span>
+                                <input id="id_contact_number" type="text" class="form-control" name="contact_number" value="" placeholder="Contact number" required="required" autofocus/>
+                            </div>
+
+
+                            <div class="input-group form_concise">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </span>
+                                <span class="input-group-addon">Date & Time</span>
+                                <input id="id_travel_date" type="date" value="2014-12-25" class="form-control" name="travel_date" required="required"/>
+                                <input id="id_travel_time" type="time" value="12:00" class="form-control" name="travel_time" required="required"/>
+                            </div>
+
+
+                            <div class="input-group form_concise">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-globe"></i>
+                                </span>
+                                <span class="input-group-addon">Destination</span>
+                                <input id="id_destination" type="text" class="form-control" name="destination" value="" placeholder="Destination" required="required"/>
+                            </div>
+
+
+                            <div class="form-group form_spaced" style="margin-top: 25px;">
+                                <!-- Button -->
+                                <div class="col-sm-12 controls">
+                                    <button type="submit" class="btn btn-primary">{% if new %}Post{% else %}Update{% endif %}</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    {% else %}
+                        Hey! That post was not created by you! You can't edit what you didn't start!
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+{% endblock %}

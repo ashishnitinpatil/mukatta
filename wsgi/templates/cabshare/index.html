@@ -1,0 +1,24 @@
+{% extends 'cabshare/base.html' %}
+
+{% block content %}
+        <div id="cabsharebox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Latest cab sharing requirements
+                    </div>
+                </div>
+        {% if not posts %}
+                <div style="padding-top:30px" class="panel-body">
+                    Nothing to show yet!
+                </div>
+        {% endif %}
+        {% for post in posts %}
+                <div style="padding-top:30px" class="panel-body">
+                    {{ post.owner.first_name }} {{ post.owner.first_name }} {% if post.contact_number %}({{ post.contact_number }}){% endif %}<br>
+                    {{ post.destination }} @ {{ post.datetime %}
+                </div>
+        {% endfor %}
+            </div>
+        </div>
+{% endblock %}

@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'djkatta.accounts',
     'djkatta.roomreq',
+    'djkatta.cabshare',
 )
 
 MIDDLEWARE_CLASSES = (

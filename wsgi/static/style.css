@@ -6,3 +6,11 @@ hr {
     border-color: white;
     border-top: 1px dashed white !important;
 }
+
+.form_concise {
+    margin-bottom: 10px;
+}
+
+.form_spaced {
+    margin-bottom: 25px;
+}

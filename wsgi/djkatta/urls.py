@@ -16,4 +16,7 @@ urlpatterns = patterns('',
 
     # "accounts" app urls
     url(r'^user/', include("djkatta.accounts.urls", namespace='user')),
+
+    # "cabshare" app urls
+    url(r'^cabshare/', include("djkatta.cabshare.urls", namespace='cabshare')),
 )
