@@ -5,20 +5,19 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        Cab share posts by {{ request.user.first_name }}
+                        Cab sharing requirement{% if not cur_post %} - {{ cur_post.id }}{% endif %}
                     </div>
                 </div>
-        {% if not posts %}
+        {% if not cur_post %}
                 <div style="padding-top:30px" class="panel-body">
-                    You haven't posted anything yet!
+                    Sorry, post with the given id does not exist!
+                </div>
+        {% else %}
+                <div style="padding-top:30px" class="panel-body">
+                    {{ cur_post.owner.first_name }} {{ cur_post.owner.last_name }} {% if cur_post.contact_number %}({{ cur_post.contact_number }}){% endif %}<br>
+                    {{ cur_post.destination }} @ {{ cur_post.travel_time }}, {{ cur_post.travel_date }}
                 </div>
         {% endif %}
-        {% for post in posts %}
-                <div style="padding-top:30px" class="panel-body">
-                    {{ post.owner.first_name }} {{ post.owner.last_name }} {% if post.contact_number %}({{ post.contact_number }}){% endif %}<br>
-                    {{ post.destination }} @ {{ post.travel_time }}, {{ post.travel_date }}
-                </div>
-        {% endfor %}
             </div>
         </div>
 {% endblock %}

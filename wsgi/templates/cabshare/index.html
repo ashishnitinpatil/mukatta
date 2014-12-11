@@ -15,8 +15,8 @@
         {% endif %}
         {% for post in posts %}
                 <div style="padding-top:30px" class="panel-body">
-                    {{ post.owner.first_name }} {{ post.owner.first_name }} {% if post.contact_number %}({{ post.contact_number }}){% endif %}<br>
-                    {{ post.destination }} @ {{ post.datetime %}
+                    {{ post.owner.first_name }} {{ post.owner.last_name }} {% if post.contact_number %}({{ post.contact_number }}){% endif %}<br>
+                    {{ post.destination }} @ {{ post.travel_time }}, {{ post.travel_date }}
                 </div>
         {% endfor %}
             </div>
