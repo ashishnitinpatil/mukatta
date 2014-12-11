@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from djkatta.cabshare.forms import CabShareForm
 from djkatta.cabshare.models import cab_sharing
+import logging
 
 
 @login_required
@@ -28,10 +29,13 @@ def new_post(request):
     new = True
     allowed = True
     form = CabShareForm(request.POST)
-    form.owner = request.user
     if form.is_valid():
+        cur_post = form.save(commit=False)
+        cur_post.owner = request.user
         cur_post = form.save()
         return redirect(cur_post.get_post_url())
+    logging.error(form.cleaned_data)
+    logging.error(form.errors)
     return render_to_response('cabshare/new_post.html', locals(), RequestContext(request))
 
 

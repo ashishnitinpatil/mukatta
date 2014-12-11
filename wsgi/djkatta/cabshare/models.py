@@ -11,7 +11,8 @@ class CabManager(models.Manager):
 class cab_sharing(models.Model):
     """Model to save any cab sharing details"""
 
-    owner = models.ForeignKey(auth_models.User, on_delete=models.PROTECT)
+    owner = models.ForeignKey(auth_models.User, on_delete=models.PROTECT,
+                              unique=True)
     req_status_choices = (
         ('O', 'Open'),
         ('C', 'Closed'),
@@ -28,13 +29,13 @@ class cab_sharing(models.Model):
     already_booked = models.BooleanField(default=False, help_text="Already booked a cab?")
 
     pickup_from = models.CharField(blank=True, max_length=128)
-    estimated_cost = models.BigIntegerField(null=True, blank=True,
-                                            help_text="Estimated total cost of the trip by cab")
+    estimated_cost = models.IntegerField(null=True, blank=True,
+                                         help_text="Estimated total cost of the trip by cab")
     cab_company = models.CharField(blank=True, help_text="Name of the cab company",
                                    max_length=64)
     cab_type    = models.CharField(blank=True, help_text="Type of the cab (mini, sedan, rickshaw)",
                                    max_length=32)
-    passengers  = models.IntegerField(default=0, help_text="Number of accompanying passengers")
+    passengers  = models.IntegerField(blank=True, null=True, help_text="Number of accompanying passengers")
 
     # default manager
     objects = models.Manager()
