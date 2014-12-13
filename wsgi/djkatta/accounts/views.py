@@ -212,3 +212,8 @@ def indi(request, username=""):
             user = None
     return render_to_response('accounts/indi.html',
                               locals(), RequestContext(request))
+
+
+@login_required
+def index(request):
+    return redirect(reverse('user:indi', kwargs={'username':request.user.username}))
