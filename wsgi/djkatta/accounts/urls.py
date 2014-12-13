@@ -35,4 +35,7 @@ urlpatterns = patterns("djkatta.accounts.views",
         'password_reset_change', name='password_reset_change'),
     url(r'password_reset_success/$',
         'password_reset_success', name='password_reset_success'),
+
+    # User view
+    url(r'(?P<username>[\w._-]+)/$', 'indi', name='indi'),
 )

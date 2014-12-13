@@ -197,3 +197,14 @@ def password_reset_change(request, username="", hash=""):
 def password_reset_success(request):
     return message_box(request, "Password reset successful!",
                        "Your password was successfully reset!")
+
+
+@login_required
+def indi(request, username=""):
+    if username:
+        try:
+            user = auth.models.User.objects.get(username=username)
+        except auth_models.User.DoesNotExist:
+            user = None
+    return render_to_response('accounts/indi.html',
+                              locals(), RequestContext(request))

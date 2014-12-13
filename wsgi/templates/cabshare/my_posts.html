@@ -5,7 +5,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        Cab share posts by {{ request.user.first_name }}
+                        Cab share posts by <a href="/user/{{ request.user.username }}/">{{ request.user.first_name }}</a>
                     </div>
                 </div>
                 {% if not posts %}

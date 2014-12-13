@@ -21,7 +21,7 @@
                     <table class="table table-bordered">
                         <tr>
                             <td>Name</td>
-                            <td>{{ cur_post.owner }}</td>
+                            <td><a href="/user/{{ cur_post.owner.username }}/">{{ cur_post.owner.first_name }} {{ cur_post.owner.last_name }}</a></td>
                         </tr>
                         {% if cur_post.contact_number %}
                         <tr>

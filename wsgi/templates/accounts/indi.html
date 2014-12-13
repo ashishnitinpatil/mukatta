@@ -1,0 +1,41 @@
+{% extends 'cabshare/base.html' %}
+
+{% block content %}
+        <div id="cabsharebox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        User view
+                    </div>
+                </div>
+        {% if not user %}
+                <div style="padding-top:30px" class="panel-body">
+                    Sorry, user with the given username does not exist!
+                </div>
+        {% else %}
+                <div class="panel-body">
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>First Name</td>
+                            <td>{{ user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td>{{ user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date joined</td>
+                            <td>{{ user.date_joined }}</td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+        {% endif %}
+            </div>
+        </div>
+{% endblock %}
