@@ -35,6 +35,7 @@ def send_pass_reset_mail(usernm="", valid_hash="", to="", reg=False):
             to = get_email_from_username(usernm)
         url = "http://mukatta-anp.rhcloud.com/user/password_reset/{0}/{1}".format(usernm, valid_hash)
         if reg:
+            title = "Registration successful!"
             message = "\n".join([
                 'Hello & welcome to Mu Katta!',
                 'Your registration was successful!',
@@ -43,6 +44,7 @@ def send_pass_reset_mail(usernm="", valid_hash="", to="", reg=False):
                 'Goto this link to reset your password - %s'%url,
             ])
         else:
+            title = "Password reset request"
             message = "\n".join([
                 'Hello!',
                 'Someone requested a password reset for your MuKatta account.',
@@ -51,7 +53,7 @@ def send_pass_reset_mail(usernm="", valid_hash="", to="", reg=False):
             ])
 
         send_mail(
-            'Mu Katta - Registration successful!', message,
+            'Mu Katta - %s'%title, message,
             settings.SERVER_EMAIL, [to,], fail_silently=False
         )
         return True

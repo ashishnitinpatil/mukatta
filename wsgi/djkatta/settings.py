@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
 APPEND_SLASH = True
 
 LOGIN_URL          = '/user/login/'
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/cabshare/'
 LOGOUT_URL         = '/user/logout/'
 
 # Application definition
