@@ -10,10 +10,7 @@ urlpatterns = patterns('',
     # Landing page - /
     url(r"^$", "djkatta.views.index", name="index"),
 
-    # Home page - /home
-    url(r"^home/$", "djkatta.views.home", name="home"),
-
-    # Home page - /home
+    # About page - /about
     url(r"^about/$", "djkatta.views.about", name="about"),
 
     # Robots page - /robots.txt
