@@ -69,6 +69,10 @@ def register(request):
                 errors = form._errors.setdefault("username", ErrorList())
                 errors.append("That username is already registered!"
                               "Forgot password?!")
+            elif not usernm:
+                errors = form._errors.setdefault("username", ErrorList())
+                errors.append("We have ample of space, no need for more!"
+                              "Enter a valid username?!")                
             else:
                 passwd = generate_random_string()
                 email  = get_email_from_username(usernm)
