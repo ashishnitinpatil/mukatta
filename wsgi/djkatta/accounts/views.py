@@ -17,7 +17,6 @@ from djkatta.accounts.utils import (
     generate_random_string, get_username_from_email, get_email_from_username,
     send_pass_reset_mail
 )
-# import logging, pprint
 
 
 # template (DRY) for message box rendering

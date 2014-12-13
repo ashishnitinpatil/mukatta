@@ -21,7 +21,32 @@
     {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
 
-    {% block nav_bar %}{% endblock %}
+    {% block nav_bar %}
+    <nav class="navbar navbar-default col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2" role="navigation">
+        <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <a class="navbar-brand" href="{% url 'about' %}">Mu Katta</a>
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'cabshare_index' %}">Cabshare</a></li>
+                <li><a href="#">RoomReq (coming soon...)</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user/{{ request.user.username }}/" class="navbar-link"></a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="glyphicon glyphicon-user"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="/user/{{ request.user.username }}/">Account</a></li>
+                    <li><a href="{% url 'cabshare:my_posts' %}">Cabshare posts</a></li>
+                    <li><a href="#">RoomReq posts</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'user:logout' %}">Logout</a></li>
+                  </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    {% endblock %}
     {% block content %}{% endblock %}
     </div>
 {% endblock %}
