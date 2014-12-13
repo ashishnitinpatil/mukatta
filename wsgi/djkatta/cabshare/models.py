@@ -11,8 +11,7 @@ class CabManager(models.Manager):
 class cab_sharing(models.Model):
     """Model to save any cab sharing details"""
 
-    owner = models.ForeignKey(auth_models.User, on_delete=models.PROTECT,
-                              unique=True)
+    owner = models.ForeignKey(auth_models.User, on_delete=models.PROTECT)
     req_status_choices = (
         ('O', 'Open'),
         ('C', 'Closed'),
@@ -50,4 +49,4 @@ class cab_sharing(models.Model):
 
     class Meta:
         verbose_name = "Cab Sharing"
-        ordering = ['-travel_date', '-travel_time']
+        ordering = ['travel_date', 'travel_time']

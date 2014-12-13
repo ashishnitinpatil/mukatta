@@ -26,16 +26,12 @@ def my_posts(request):
 @login_required
 def new_post(request):
     """New post"""
-    new = True
-    allowed = True
     form = CabShareForm(request.POST)
     if form.is_valid():
         cur_post = form.save(commit=False)
         cur_post.owner = request.user
         cur_post = form.save()
         return redirect(cur_post.get_post_url())
-    logging.error(form.cleaned_data)
-    logging.error(form.errors)
     return render_to_response('cabshare/new_post.html', locals(), RequestContext(request))
 
 
@@ -44,7 +40,7 @@ def indi(request, post_id=None):
     """Individual post view"""
     try:
         cur_post = cab_sharing.objects.get(id=post_id)
-    except cur_post.DoesNotExist:
+    except cab_sharing.DoesNotExist:
         cur_post = None
     return render_to_response('cabshare/indi.html', locals(), RequestContext(request))
 
@@ -53,19 +49,26 @@ def indi(request, post_id=None):
 @login_required
 def edit(request, post_id=None):
     """Individual post edit"""
-    new = False
-    allowed = True
+    allowed = False
+    does_not_exist = False
     try:
         cur_post = cab_sharing.objects.get(id=post_id)
-        if not cur_post.owner == request.user:
-            allowed = False
-    except cur_post.DoesNotExist:
+        if cur_post.owner == request.user:
+            allowed = True
+    except cab_sharing.DoesNotExist:
+        logging.error("dne")
         cur_post = None
-    form = CabShareForm(cur_post)
-    if request.POST:
-        form = CabShareForm(request.POST)
-        form.owner = request.user
-        if form.is_valid():
-            cur_post = form.save()
-            return redirect(cur_post.get_post_url())
-    return render_to_response('cabshare/new_post.html', locals(), RequestContext(request))
+        does_not_exist = True
+    # process only if post exists & edit is allowed
+    if cur_post and allowed:
+        form = CabShareForm(instance=cur_post)
+        cur_post_url = cur_post.get_post_url()
+        if request.POST:
+            form = CabShareForm(request.POST)
+            cur_post.owner = request.user
+            if form.is_valid():
+                cur_post = form.save(commit=False)
+                cur_post.owner = request.user
+                cur_post = form.save()
+                return redirect(cur_post_url)
+    return render_to_response('cabshare/edit_post.html', locals(), RequestContext(request))

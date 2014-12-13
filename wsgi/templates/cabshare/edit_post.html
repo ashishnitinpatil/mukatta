@@ -13,13 +13,15 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        New cab sharing requirement
+                        Update cab sharing requirement
                     </div>
                 </div>
 
                 <div style="padding-top:30px" class="panel-body">
                     {# Display the form #}
-                        <form id="form" action="{% url 'cabshare:new_post' %}" method="post" class="form-horizontal">
+                    {% if allowed %}
+                        <form id="form" action="{{ cur_post_url }}" method="post" class="form-horizontal">
+
                             {% csrf_token %}
 
                             <center>
@@ -28,8 +30,8 @@
                                     <i class="glyphicon glyphicon-off"></i>
                                 </span>-->
                                 <select id="id_req_open" class="form-control" name="req_open" title="Requirement status of the post">
-                                    <option title="The post will be visible to other users." value="O">Open</option>
-                                    <option title="This will hide the post from other users. A post can be re-opened!" value="C">Closed</option>
+                                    <option title="The post will be visible to other users." value="O" {% if form.req_open.value %}selected="selected"{% endif %}>Open</option>
+                                    <option title="This will hide the post from other users. A post can be re-opened!" value="C" {% if not form.req_open.value %}selected="selected"{% endif %}>Closed</option>
                                 </select>
                             </div>
                             </center>
@@ -39,7 +41,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-earphone"></i>
                                 </span>
-                                <input id="id_contact_number" type="text" class="form-control" name="contact_number" value="" placeholder="Contact number" title="This form field is optional" autofocus/>
+                                <input id="id_contact_number" type="text" class="form-control" name="contact_number" value="{{ form.contact_number.value }}" placeholder="Contact number" title="This form field is optional" autofocus/>
                             </div>
 
 
@@ -47,7 +49,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-map-marker"></i>
                                 </span>
-                                <input id="id_destination" type="text" class="form-control" name="destination" value="" placeholder="Destination" required="required" title="Where will the cab drop you off?"/>
+                                <input id="id_destination" type="text" class="form-control" name="destination" value="{{ form.destination.value }}" placeholder="Destination" required="required" title="Where will the cab drop you off?"/>
                             </div>
 
 
@@ -55,8 +57,8 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-time"></i>
                                 </span>
-                                <input id="id_travel_date" type="date" value="2014-12-25" class="form-control" name="travel_date" required="required" title="Date on which cab is required"/>
-                                <input id="id_travel_time" type="time" value="12:00" class="form-control" name="travel_time" required="required" title="Time at which cab required (latest)"/>
+                                {{ form.travel_date }}
+                                {{ form.travel_time }}
                             </div>
 
 
@@ -64,7 +66,7 @@
                             <div class="input-group form_concise">
                             <div class="checkbox">
                                 <label>
-                                <input id="id_already_booked" type="checkbox" name="already_booked" title="Already made arrangements?"/> I have already booked a cab!
+                                <input id="id_already_booked" type="checkbox" name="already_booked" title="Already made arrangements?" {% if form.already_booked.value %}checked="checked"{% endif %}/> I have already booked a cab!
                                 </label>
                             </div>
                             </div>
@@ -75,7 +77,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-map-marker"></i>
                                 </span>
-                                <input id="id_pickup_from" type="text" class="form-control" name="pickup_from" value="" placeholder="Pickup from" title="Where will the cab pick you up?"/>
+                                <input id="id_pickup_from" type="text" class="form-control" name="pickup_from" value="{{ form.pickup_from.value }}" placeholder="Pickup from" title="Where will the cab pick you up?"/>
                             </div>
 
 
@@ -83,7 +85,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-usd"></i>
                                 </span>
-                                <input id="id_estimated_cost" type="number" class="form-control" name="estimated_cost" value="" placeholder="Estimated cost (amount in Rs.)" title="What is the estimated cost for the trip?"/>
+                                <input id="id_estimated_cost" type="number" class="form-control" name="estimated_cost" value="{{ form.estimated_cost.value }}" placeholder="Estimated cost (amount in Rs.)" title="What is the estimated cost for the trip?"/>
                             </div>
 
 
@@ -91,7 +93,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-user"></i>
                                 </span>
-                                <input id="id_passengers" type="number" class="form-control" name="passengers" placeholder="Total number of co-passengers? (excluding you)" title="How many other passengers are accompanying you on the trip?"/>
+                                <input id="id_passengers" type="number" value="{{ form.passengers.value }}" class="form-control" name="passengers" placeholder="Total number of co-passengers? (excluding you)" title="How many other passengers are accompanying you on the trip?"/>
                             </div>
 
 
@@ -99,7 +101,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-font"></i>
                                 </span>
-                                <input id="id_cab_company" type="text" class="form-control" name="cab_company" value="" placeholder="Cab provider (Uber, Ola, etc.)" title="Which company is the cab provider?"/>
+                                <input id="id_cab_company" type="text" class="form-control" name="cab_company" value="{{ form.cab_company.value }}" placeholder="Cab provider (Uber, Ola, etc.)" title="Which company is the cab provider?"/>
                             </div>
 
 
@@ -107,7 +109,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-resize-horizontal"></i>
                                 </span>
-                                <input id="id_cab_type" type="text" class="form-control" name="cab_type" value="" placeholder="Cab type (mini, sedan, prime, rickshaw)" title="Which type of cab did you book?"/>
+                                <input id="id_cab_type" type="text" class="form-control" name="cab_type" value="{{ form.cab_type.value }}" placeholder="Cab type (mini, sedan, prime, rickshaw)" title="Which type of cab did you book?"/>
                             </div>
 
 
@@ -115,12 +117,16 @@
                             <div class="form-group form_spaced" style="margin-top: 25px;">
                                 <!-- Button -->
                                 <div class="col-sm-12 controls">
-                                    <button type="submit" class="btn btn-danger">Post</button>
+                                    <button type="submit" class="btn btn-danger">Update</button>
                                 </div>
                             </div>
                             </center>
-
                         </form>
+                    {% elif does_not_exist %}
+                        Sorry, post with the given id does not exist!
+                    {% else %}
+                        You are not the Dark Lord to control others or their posts!
+                    {% endif %}
 
                 </div>
             </div>
@@ -133,12 +139,18 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script>
+        $("#id_travel_date").attr("class", "form-control");
+        $("#id_travel_date").attr("type", "date");
+        $("#id_travel_time").attr("class", "form-control");
+        $("#id_travel_time").attr("type", "time");
 
-        $("#div_id_pickup_from").hide();
-        $("#div_id_estimated_cost").hide();
-        $("#div_id_passengers").hide();
-        $("#div_id_cab_company").hide();
-        $("#div_id_cab_type").hide();
+        {% if not form.already_booked.value %}
+            $("#div_id_pickup_from").hide();
+            $("#div_id_estimated_cost").hide();
+            $("#div_id_passengers").hide();
+            $("#div_id_cab_company").hide();
+            $("#div_id_cab_type").hide();
+        {% endif %}
 
         $('#id_already_booked').change(function() {
             if ($(this).is(":checked")) {

@@ -9,12 +9,9 @@ urlpatterns = patterns("djkatta.cabshare.views",
     # view posts by the user
     url(r'my_posts/$', 'my_posts', name='my_posts'),
 
-    # view individual req
-    url(r'(?P<post_id>[\w]+)/$', 'indi', name='indi'),
-
     # modify old req
-    url(r'(?P<post_id>[\w]+)/edit/$', 'edit', name='edit'),
+    url(r'(?P<post_id>[\d]+)/edit/$', 'edit', name='edit'),
 
-    # app main page
-    url(r'$', 'index', name='index'),
+    # view individual req
+    url(r'(?P<post_id>[\d]+)/$', 'indi', name='indi'),
 )
