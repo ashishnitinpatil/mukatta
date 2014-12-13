@@ -40,7 +40,7 @@ def login(request, *args, **kwargs):
         if request.POST:
             form = LoginForm(request.POST)
             if form.is_valid():
-                usernm = form.cleaned_data['username']
+                usernm = form.cleaned_data['username'].strip()
                 passwd = form.cleaned_data['password']
                 user = auth.authenticate(username=usernm, password=passwd)
                 if user and user.is_active:
@@ -60,7 +60,7 @@ def register(request):
     if request.POST:
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            usernm = form.cleaned_data['username']
+            usernm = form.cleaned_data['username'].strip()
             try:
                 user = auth.models.User.objects.get(username__iexact=usernm)
             except:
@@ -76,8 +76,8 @@ def register(request):
                     username=usernm,
                     password=passwd,
                     email=email,
-                    first_name=form.cleaned_data['first_name'],
-                    last_name=form.cleaned_data['last_name'],
+                    first_name=form.cleaned_data['first_name'].strip(),
+                    last_name=form.cleaned_data['last_name'].strip(),
                 )
                 validb = pass_reset_validb.objects.create(username=usernm)
                 send_pass_reset_mail(validb.username, validb.valid_hash, reg=True)
@@ -146,7 +146,7 @@ def password_reset_req(request):
     if request.POST:
         form = PasswordResetRequestForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
+            username = form.cleaned_data['username'].strip()
             try:
                 reset_req = pass_reset_validb.objects.get(username=username)
                 if reset_req.valid_upto:
