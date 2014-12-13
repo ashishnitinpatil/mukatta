@@ -14,3 +14,4 @@ cd $OPENSHIFT_REPO_DIR
 python wsgi/manage.py syncdb
 # collect static content for django admin
 python wsgi/manage.py collectstatic
+cp -avr static_temp/admin static/admin
