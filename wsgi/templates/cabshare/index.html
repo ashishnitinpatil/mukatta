@@ -10,15 +10,20 @@
                 </div>
         {% if not posts %}
                 <div style="padding-top:30px" class="panel-body">
-                    Nothing to show yet!
+                    No active cab sharing requirements at the moment.
                 </div>
         {% endif %}
-        {% for post in posts %}
                 <div style="padding-top:30px" class="panel-body">
-                    {{ post.owner.first_name }} {{ post.owner.last_name }} {% if post.contact_number %}({{ post.contact_number }}){% endif %}<br>
-                    {{ post.destination }} @ {{ post.travel_time }}, {{ post.travel_date }}
+                {% for post in posts %}
+                <div class="list-group">
+                    <div class="list-group-item">
+                    To {{ post.destination }} on {{ post.travel_date }} {{ post.travel_time }}
+                    <span style="float:right"><a href="{{ post.url }}">Details</a>{% if post.editable %} | <a href="{{ post.url }}edit/">Edit</a>{% endif %}</span><br>
+                    - {{ post.owner.first_name }} {{ post.owner.last_name }}
+                    </div>
                 </div>
-        {% endfor %}
+                {% endfor %}
+                </div>
             </div>
         </div>
 {% endblock %}

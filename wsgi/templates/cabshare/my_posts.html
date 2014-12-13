@@ -8,17 +8,21 @@
                         Cab share posts by {{ request.user.first_name }}
                     </div>
                 </div>
-        {% if not posts %}
+                {% if not posts %}
                 <div style="padding-top:30px" class="panel-body">
                     You haven't posted anything yet!
                 </div>
-        {% endif %}
-        {% for post in posts %}
+                {% endif %}
                 <div style="padding-top:30px" class="panel-body">
-                    {{ post.owner.first_name }} {{ post.owner.last_name }} {% if post.contact_number %}({{ post.contact_number }}){% endif %}<br>
-                    {{ post.destination }} @ {{ post.travel_time }}, {{ post.travel_date }}
+                {% for post in posts %}
+                <div class="list-group">
+                    <div class="list-group-item">
+                    <a href="{{ post.url }}">To {{ post.destination }} on {{ post.travel_date }}</a>
+                    <span style="float:right"><a href="{{ post.url }}edit/">Edit</a></span>
+                    </div>
                 </div>
-        {% endfor %}
+                {% endfor %}
+                </div>
             </div>
         </div>
 {% endblock %}

@@ -27,7 +27,7 @@ class cab_sharing(models.Model):
     destination = models.CharField(default="Airport", max_length=64)
     already_booked = models.BooleanField(default=False, help_text="Already booked a cab?")
 
-    pickup_from = models.CharField(blank=True, max_length=128)
+    pickup_from = models.CharField(blank=True, max_length=128, help_text="Pickup location")
     estimated_cost = models.IntegerField(null=True, blank=True,
                                          help_text="Estimated total cost of the trip by cab")
     cab_company = models.CharField(blank=True, help_text="Name of the cab company",
@@ -46,6 +46,15 @@ class cab_sharing(models.Model):
 
     def get_post_url(self):
         return reverse('cabshare:indi', kwargs={'post_id':self.id})
+
+    def save(self, *args, **kwargs):
+        if not self.already_booked:
+            self.pickup_from = ""
+            self.estimated_cost = None
+            self.cab_company = ""
+            self.cab_type = ""
+            self.passengers = None
+        super(cab_sharing, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Cab Sharing"

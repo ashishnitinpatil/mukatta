@@ -7,6 +7,24 @@ hr {
     border-top: 1px dashed white !important;
 }
 
+a {
+    color: orange;
+}
+
+a:hover {
+    color: orange;
+    text-decoration: none;
+}
+
+.panel_a {
+    color: #0ce3ac;
+}
+
+.panel_a:hover {
+    color: #0ce3ac;
+    text-decoration: none;
+}
+
 .form_concise {
     margin-bottom: 10px;
 }

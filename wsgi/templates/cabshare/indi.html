@@ -1,11 +1,14 @@
 {% extends 'cabshare/base.html' %}
 
 {% block content %}
-        <div id="cabsharebox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div id="cabsharebox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        Cab sharing requirement{% if not cur_post %} - {{ cur_post.id }}{% endif %}
+                        Cab sharing requirement{% if cur_post %} - {{ cur_post.id }}{% endif %}
+                        {% if cur_post %}{% if cur_post.editable %}
+                        <span style="float:right;"><a class="panel_a" href="{{ cur_post_url }}edit/">Edit</a></span>
+                        {% endif %}{% endif %}
                     </div>
                 </div>
         {% if not cur_post %}
@@ -13,9 +16,55 @@
                     Sorry, post with the given id does not exist!
                 </div>
         {% else %}
-                <div style="padding-top:30px" class="panel-body">
-                    {{ cur_post.owner.first_name }} {{ cur_post.owner.last_name }} {% if cur_post.contact_number %}({{ cur_post.contact_number }}){% endif %}<br>
-                    {{ cur_post.destination }} @ {{ cur_post.travel_time }}, {{ cur_post.travel_date }}
+                <div class="panel-body">
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Name</td>
+                            <td>{{ cur_post.owner.first_name }} {{ cur_post.owner.last_name }}</td>
+                        </tr>
+                        {% if cur_post.contact_number %}
+                        <tr>
+                            <td>Contact No.</td>
+                            <td>{{ cur_post.contact_number }}</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Destination</td>
+                            <td>{{ cur_post.destination }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date & Time</td>
+                            <td>{{ cur_post.travel_time }} {{ cur_post.travel_date }}</td>
+                        </tr>
+                        <tr>
+                            <td>Booking status</td>
+                            <td>{% if cur_post.already_booked %}Booked{% else %}Not booked{% endif %}</td>
+                        </tr>
+                        {% if cur_post.already_booked %}
+                        <tr>
+                            <td>Cab company</td>
+                            <td>{{ cur_post.cab_company }}</td>
+                        </tr>
+                        <tr>
+                            <td>Cab type</td>
+                            <td>{{ cur_post.cab_type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Pickup location</td>
+                            <td>{{ cur_post.pickup_from }}</td>
+                        </tr>
+                        <tr>
+                            <td>Estimated cost</td>
+                            <td>Rs. {{ cur_post.estimated_cost }}</td>
+                        </tr>
+                        <tr>
+                            <td>Other passengers</td>
+                            <td>+{{ cur_post.passengers }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    </div>
                 </div>
         {% endif %}
             </div>

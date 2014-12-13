@@ -20,7 +20,7 @@
                 <div style="padding-top:30px" class="panel-body">
                     {# Display the form #}
                     {% if allowed %}
-                        <form id="form" action="{{ cur_post_url }}" method="post" class="form-horizontal">
+                        <form id="form" action="{{ cur_post_url }}edit/" method="post" class="form-horizontal">
 
                             {% csrf_token %}
 
@@ -77,7 +77,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-map-marker"></i>
                                 </span>
-                                <input id="id_pickup_from" type="text" class="form-control" name="pickup_from" value="{{ form.pickup_from.value }}" placeholder="Pickup from" title="Where will the cab pick you up?"/>
+                                <input id="id_pickup_from" type="text" class="form-control" name="pickup_from" value="{{ form.pickup_from.value }}" placeholder="Pickup location" title="Where will the cab pick you up?"/>
                             </div>
 
 
