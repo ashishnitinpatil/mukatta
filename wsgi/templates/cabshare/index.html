@@ -18,8 +18,8 @@
                 <div class="list-group">
                     <div class="list-group-item">
                     To {{ post.destination }} on {{ post.travel_date }} {{ post.travel_time }}
-                    <span style="float:right"><a href="{{ post.url }}">Details</a>{% if post.editable %} | <a href="{{ post.url }}edit/">Edit</a>{% endif %}</span><br>
-                    - {{ post.owner.first_name }} {{ post.owner.last_name }}
+                    <span style="float:right">{% if post.editable %}<a href="{{ post.url }}edit/">Edit</a> | {% endif %}<a href="{{ post.url }}">Details</a></span><br>
+                    - {{ post.owner }}
                     </div>
                 </div>
                 {% endfor %}
