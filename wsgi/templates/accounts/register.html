@@ -8,7 +8,7 @@
                 <div class="panel-heading">
                     <div class="panel-title">Sign Up
                         <span style="float:right;">
-                            <a id="signinlink" href="{% url 'user:login' %}">Sign In</a>
+                            <a class="panel_a" id="signinlink" href="{% url 'user:login' %}">Sign In</a>
                         </span>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                             &times;
                             </button>
-                            Sorry, unable to process request. Re-registering?!
+                            Sorry, unable to process request. Re-registering?! You did exclude '@mu-sigma.com' from the username right?!
                         </div>
                         {% endif %}
 
@@ -29,7 +29,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-user"></i>
                             </span>
-                            <input id="id_username" type="text" class="form-control" name="username" value="" placeholder="username" required="required" autofocus/>
+                            <input id="id_username" type="text" class="form-control" name="username" value="" placeholder="username" title="Mu Sigma id (without the trailing @mu-sigma.com)" required="required" autofocus/>
                             <span class="input-group-addon">@mu-sigma.com</span>
                         </div>
 
@@ -46,7 +46,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-align-left"></i>
                             </span>
-                            <input id="id_first_name" type="text" class="form-control" name="first_name" value="" placeholder="First Name" required="required"/>
+                            <input id="id_first_name" type="text" class="form-control" name="first_name" value="" placeholder="First Name" title="First name" required="required"/>
                         </div>
 
                         {% if form.last_name.errors %}
@@ -62,7 +62,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-align-right"></i>
                             </span>
-                            <input id="id_last_name" type="text" class="form-control" name="last_name" value="" placeholder="Last Name" required="required"/>
+                            <input id="id_last_name" type="text" class="form-control" name="last_name" value="" placeholder="Last Name" title="Last name" required="required"/>
                         </div>
 
                         {% for error in form.register_swear.errors %}
@@ -75,9 +75,9 @@
 
                         <div class="input-group">
                             <div class="checkbox">
-                                <label>
+                                <label title="Sanity check/compulsion">
                                     <input id="id_register_swear" type="checkbox"
-                                name="register_swear" checked> I solemnly swear that I am up to no bad!
+                                name="register_swear" title="Sanity check/compulsion" checked="checked"> I solemnly swear that I am up to no bad!
                                 </label>
                             </div>
                         </div>
