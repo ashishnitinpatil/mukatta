@@ -30,32 +30,3 @@ class pass_reset_validb(models.Model):
 
     class Meta:
         verbose_name = "Password Reset Hashtable"
-
-
-### The following code is openshift specific (required since no auto syncdb)
-# Create our own root user automatically...
-# Remember to change the password manually!
-
-def create_rootuser(app, created_models, verbosity, **kwargs):
-  if not settings.DEBUG:
-    return
-  try:
-    auth_models.User.objects.get(username='root')
-  except auth_models.User.DoesNotExist:
-    print '*' * 80
-    print 'Creating "root" user -- login: root, password: root'
-    print '*' * 80
-    assert auth_models.User.objects.create_superuser(
-        'root',
-        'ashishnitinpatil@gmail.com',
-        'root'
-    )
-  else:
-    print '"root" user already exists.'
-
-models.signals.post_syncdb.connect(
-    create_rootuser,
-    sender=auth_models,
-    dispatch_uid='common.models.create_rootuser'
-)
-### End of openshift specific code

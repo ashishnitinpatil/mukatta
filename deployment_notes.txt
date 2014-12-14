@@ -1,8 +1,15 @@
 ## Git commit all changes & then
+# github copy
+git push github master
+# push & deploy to openshift
 git push origin master
 
 ## If it's not a hot deploy
+# set secrets as env vars
 rhc env set EMAIL_HOST_PASSWORD="secret" SECRET_KEY="secret" -a mukatta
+# create super user
+cd $OPENSHIFT_REPO_DIR
+python wsgi/manage.py createsuperuser
 
 ## For every git push
 # SSH into remote rhcloud instance
@@ -12,4 +19,4 @@ cd $OPENSHIFT_REPO_DIR
 python wsgi/manage.py migrate
 # collect static content for django admin
 python wsgi/manage.py collectstatic
-cp -avr static_temp/admin static/admin
+cp -afr wsgi/static_temp/admin wsgi/static/admin
