@@ -34,6 +34,8 @@ def login(request, *args, **kwargs):
             form = LoginForm(request.POST)
             if form.is_valid():
                 usernm = form.cleaned_data['username'].strip()
+                if '@' in usernm:
+                    usernm = usernm[:usernm.find('@')]
                 passwd = form.cleaned_data['password']
                 user = auth.authenticate(username=usernm, password=passwd)
                 if user and user.is_active:
@@ -42,8 +44,9 @@ def login(request, *args, **kwargs):
                     if form.cleaned_data['login_rem']:
                         request.session.set_expiry(7*60*60*24)
                     return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
-            # logging.error(pprint.pprint([request.POST,form.cleaned_data]))
-        # else
+                else:
+                    errors = form._errors.setdefault("username", ErrorList())
+                    errors.append("Invalid username or password")
         return render_to_response('accounts/login.html',locals(),RequestContext(request))
 
 
@@ -202,7 +205,7 @@ def indi(request, username=""):
     if username:
         try:
             user = auth.models.User.objects.get(username=username)
-        except auth_models.User.DoesNotExist:
+        except auth.models.User.DoesNotExist:
             user = None
     return render_to_response('accounts/indi.html',
                               locals(), RequestContext(request))

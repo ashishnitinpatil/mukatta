@@ -14,7 +14,7 @@ class RegistrationForm(forms.Form):
     def clean_register_swear(self):
         swore = self.cleaned_data.get('register_swear')
         if not swore:
-            raise forms.ValidationError("You need to swear! I am Sirius!")
+            raise forms.ValidationError("You need to swear. Don't [Br]eak [Ba]d! I am Sirius!")
             return False
         return True
 
