@@ -9,15 +9,12 @@ export PYTHON_EGG_CACHE=${OPENSHIFT_HOMEDIR}python/virtenv/lib/python-2.7/site-p
 
 source ${OPENSHIFT_HOMEDIR}python/virtenv/bin/activate
 
-# source $OPENSHIFT_HOMEDIR/python/virtenv/bin/activate
-
-# echo "CDing into '$OPENSHIFT_REPO_DIR/wsgi'"
-# cd ${OPENSHIFT_REPO_DIR}wsgi
+echo "CDing into repo dir"
+cd $OPENSHIFT_REPO_DIR
 
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/manage.py migrate'"
 python "$OPENSHIFT_REPO_DIR"wsgi/manage.py migrate
 
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/manage.py collectstatic --noinput'"
-cd $OPENSHIFT_REPO_DIR
 python wsgi/manage.py collectstatic --noinput
-cp -afr static_temp/admin static/admin
+cp -afr wsgi/static_temp/admin wsgi/static/admin
