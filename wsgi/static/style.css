@@ -17,11 +17,11 @@ a:hover {
 }
 
 .panel_a {
-    color: #0ce3ac;
+    color: black;
 }
 
 .panel_a:hover {
-    color: #0ce3ac;
+    color: black;
     text-decoration: none;
 }
 
