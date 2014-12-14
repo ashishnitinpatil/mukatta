@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'mukatta-anp.rhcloud.com',
+    '192.168.1.234', # local dev
 ]
 
 APPEND_SLASH = True

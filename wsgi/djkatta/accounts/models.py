@@ -34,6 +34,7 @@ class pass_reset_validb(models.Model):
 
 ### The following code is openshift specific (required since no auto syncdb)
 # Create our own root user automatically...
+# Remember to change the password manually!
 
 def create_rootuser(app, created_models, verbosity, **kwargs):
   if not settings.DEBUG:
