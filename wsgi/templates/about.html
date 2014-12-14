@@ -2,22 +2,22 @@
 
 {% block title %}About MuKatta{% endblock %}
 
-{% block body %}
-        <div id="top" class="mainbox col-md-5 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12" style="background-color:#222222; margin-bottom:30px;">
-            <h2>About...
+{% block content %}
+        <div id="top" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12" style="background-color:#222222; margin-bottom:30px;">
+            <h3>About...
+                {% if not request.user.is_authenticated %}
                 <span style="float:right">
                 <a class="btn btn-success" href="{% url 'user:login' %}" role="button">Sign In</a>
                 <a class="btn btn-success" href="{% url 'user:register' %}" role="button">Register</a>
                 </span>
-            </h2><hr>
+                {% endif %}
+            </h3><hr>
 
             <div style="font-family:Arial,sans-serif">
             <p>
-            </p>
-            <p>
                 <a class="btn btn-primary btn-sm" href="#what">What</a> |
                 <a class="btn btn-primary btn-sm" href="#tech">How</a> |
-                <a class="btn btn-primary btn-sm" href="#privacy">Privacy & TnC</a> |
+                <a class="btn btn-primary btn-sm" href="#privacy">Privacy</a> |
                 <a class="btn btn-primary btn-sm" href="#contact">Contact me</a>
             </p>
             <p style="font-size:16px;" id="info">
@@ -51,7 +51,7 @@
 
             <h4 id="contact">Contact me...</h4>
             <p style="font-size:16px;">
-                For feedback/suggestions, email me at <a href="mailto:ashishnitinpatil@gmail.com">ashishnitinpatil@gmail.com</a><br>
+                For feedback/suggestions, email me at <a href="mailto:ashishnitinpatil@gmail.com">ashishnitinpatil@gmail.com</a>.<br>
                 Please mention "Mu Katta" in the subject line!<br>
 
                 <br>More useful web apps from me - 

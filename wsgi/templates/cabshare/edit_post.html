@@ -9,126 +9,108 @@
 {% endblock %}
 
 {% block content %}
-        <div id="cabsharebox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        Update cab sharing requirement
-                    </div>
-                </div>
+        <div id="cabsharebox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <center><h4>Update cab sharing requirement</h4></center>
+            <div style="padding-top:10px">
+                {# Display the form #}
+                {% if allowed %}
+                    <form id="form" action="{{ cur_post_url }}edit/" method="post" class="form-horizontal">
+                        {% csrf_token %}
 
-                <div style="padding-top:30px" class="panel-body">
-                    {# Display the form #}
-                    {% if allowed %}
-                        <form id="form" action="{{ cur_post_url }}edit/" method="post" class="form-horizontal">
+                        <center>
+                        <div class="input-group form_concise">
+                            <!--<span class="input-group-addon">
+                                <i class="glyphicon glyphicon-off"></i>
+                            </span>-->
+                            <select id="id_req_open" class="form-control" name="req_open" title="Requirement status of the post">
+                                <option title="The post will be visible to other users." value="O" {% if post_open %}selected="selected"{% endif %}>Open</option>
+                                <option title="This will hide the post from other users. A post can be re-opened!" value="C" {% if not post_open %}selected="selected"{% endif %}>Closed</option>
+                            </select>
+                        </div>
+                        </center>
 
-                            {% csrf_token %}
+                        <div class="input-group form_concise">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-earphone"></i>
+                            </span>
+                            <input id="id_contact_number" type="text" class="form-control" name="contact_number" value="{{ form.contact_number.value }}" placeholder="Contact number" title="This form field is optional" autofocus/>
+                        </div>
 
-                            <center>
-                            <div class="input-group form_concise">
-                                <!--<span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-off"></i>
-                                </span>-->
-                                <select id="id_req_open" class="form-control" name="req_open" title="Requirement status of the post">
-                                    <option title="The post will be visible to other users." value="O" {% if form.req_open.value %}selected="selected"{% endif %}>Open</option>
-                                    <option title="This will hide the post from other users. A post can be re-opened!" value="C" {% if not form.req_open.value %}selected="selected"{% endif %}>Closed</option>
-                                </select>
+                        <div class="input-group form_concise">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                            </span>
+                            <input id="id_destination" type="text" class="form-control" name="destination" value="{{ form.destination.value }}" placeholder="Destination / drop point" required="required" title="Where will the cab drop you off?"/>
+                        </div>
+
+                        <div class="input-group form_concise">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-time"></i>
+                            </span>
+                            {{ form.travel_date }}
+                            {{ form.travel_time }}
+                        </div>
+
+                        <center>
+                        <div class="input-group form_concise">
+                        <div class="checkbox">
+                            <label>
+                            <input id="id_already_booked" type="checkbox" name="already_booked" title="Already made arrangements?" {% if form.already_booked.value %}checked="checked"{% endif %}/> I have already booked a cab!
+                            </label>
+                        </div>
+                        </div>
+                        </center>
+
+                        <div id="div_id_pickup_from" class="input-group form_concise">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                            </span>
+                            <input id="id_pickup_from" type="text" class="form-control" name="pickup_from" value="{{ form.pickup_from.value }}" placeholder="Pickup location" title="Where will the cab pick you up?"/>
+                        </div>
+
+                        <div id="div_id_estimated_cost" class="input-group form_concise">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-usd"></i>
+                            </span>
+                            <input id="id_estimated_cost" type="number" class="form-control" name="estimated_cost" value="{{ form.estimated_cost.value }}" placeholder="Estimated cost (in Rs.)" title="What is the estimated cost for the trip?"/>
+                        </div>
+
+                        <div id="div_id_passengers" class="input-group form_concise">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            <input id="id_passengers" type="number" value="{{ form.passengers.value }}" class="form-control" name="passengers" placeholder="No. of co-passengers (0, 1, etc.)" title="How many other passengers are accompanying you on the trip?"/>
+                        </div>
+
+                        <div id="div_id_cab_company" class="input-group form_concise">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-font"></i>
+                            </span>
+                            <input id="id_cab_company" type="text" class="form-control" name="cab_company" value="{{ form.cab_company.value }}" placeholder="Cab provider (Uber, Ola, etc.)" title="Which company is the cab provider?"/>
+                        </div>
+
+                        <div id="div_id_cab_type" class="input-group form_concise">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-resize-horizontal"></i>
+                            </span>
+                            <input id="id_cab_type" type="text" class="form-control" name="cab_type" value="{{ form.cab_type.value }}" placeholder="Cab type (mini, sedan, rickshaw, etc.)" title="Which type of cab did you book?"/>
+                        </div>
+
+                        <center>
+                        <div class="form-group form_spaced" style="margin-top: 25px;">
+                            <!-- Button -->
+                            <div class="col-sm-12 controls">
+                                <button type="submit" class="btn btn-danger">Update</button>
                             </div>
-                            </center>
+                        </div>
+                        </center>
+                    </form>
+                {% elif does_not_exist %}
+                    Sorry, post with the given id does not exist!
+                {% else %}
+                    You are not the "Dark Lord" to control others, or their posts!
+                {% endif %}
 
-
-                            <div class="input-group form_concise">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-earphone"></i>
-                                </span>
-                                <input id="id_contact_number" type="text" class="form-control" name="contact_number" value="{{ form.contact_number.value }}" placeholder="Contact number" title="This form field is optional" autofocus/>
-                            </div>
-
-
-                            <div class="input-group form_concise">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-map-marker"></i>
-                                </span>
-                                <input id="id_destination" type="text" class="form-control" name="destination" value="{{ form.destination.value }}" placeholder="Destination" required="required" title="Where will the cab drop you off?"/>
-                            </div>
-
-
-                            <div class="input-group form_concise">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-time"></i>
-                                </span>
-                                {{ form.travel_date }}
-                                {{ form.travel_time }}
-                            </div>
-
-
-                            <center>
-                            <div class="input-group form_concise">
-                            <div class="checkbox">
-                                <label>
-                                <input id="id_already_booked" type="checkbox" name="already_booked" title="Already made arrangements?" {% if form.already_booked.value %}checked="checked"{% endif %}/> I have already booked a cab!
-                                </label>
-                            </div>
-                            </div>
-                            </center>
-
-
-                            <div id="div_id_pickup_from" class="input-group form_concise">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-map-marker"></i>
-                                </span>
-                                <input id="id_pickup_from" type="text" class="form-control" name="pickup_from" value="{{ form.pickup_from.value }}" placeholder="Pickup location" title="Where will the cab pick you up?"/>
-                            </div>
-
-
-                            <div id="div_id_estimated_cost" class="input-group form_concise">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-usd"></i>
-                                </span>
-                                <input id="id_estimated_cost" type="number" class="form-control" name="estimated_cost" value="{{ form.estimated_cost.value }}" placeholder="Estimated cost (amount in Rs.)" title="What is the estimated cost for the trip?"/>
-                            </div>
-
-
-                            <div id="div_id_passengers" class="input-group form_concise">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                </span>
-                                <input id="id_passengers" type="number" value="{{ form.passengers.value }}" class="form-control" name="passengers" placeholder="Total number of co-passengers? (excluding you)" title="How many other passengers are accompanying you on the trip?"/>
-                            </div>
-
-
-                            <div id="div_id_cab_company" class="input-group form_concise">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-font"></i>
-                                </span>
-                                <input id="id_cab_company" type="text" class="form-control" name="cab_company" value="{{ form.cab_company.value }}" placeholder="Cab provider (Uber, Ola, etc.)" title="Which company is the cab provider?"/>
-                            </div>
-
-
-                            <div id="div_id_cab_type" class="input-group form_concise">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-resize-horizontal"></i>
-                                </span>
-                                <input id="id_cab_type" type="text" class="form-control" name="cab_type" value="{{ form.cab_type.value }}" placeholder="Cab type (mini, sedan, prime, rickshaw)" title="Which type of cab did you book?"/>
-                            </div>
-
-
-                            <center>
-                            <div class="form-group form_spaced" style="margin-top: 25px;">
-                                <!-- Button -->
-                                <div class="col-sm-12 controls">
-                                    <button type="submit" class="btn btn-danger">Update</button>
-                                </div>
-                            </div>
-                            </center>
-                        </form>
-                    {% elif does_not_exist %}
-                        Sorry, post with the given id does not exist!
-                    {% else %}
-                        You are not the Dark Lord to control others or their posts!
-                    {% endif %}
-
-                </div>
             </div>
         </div>
 {% endblock %}

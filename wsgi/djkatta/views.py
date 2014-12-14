@@ -14,4 +14,4 @@ def index(request):
 
 def about(request):
     """About this website"""
-    return render_to_response('about.html')
+    return render_to_response('about.html',locals(),RequestContext(request))

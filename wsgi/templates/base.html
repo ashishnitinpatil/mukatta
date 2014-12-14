@@ -6,11 +6,10 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="icon" href="/static/favicon.png"/>
-	<link rel="shortcut icon" href="/static/favicon.png"/>
-	<link rel="apple-touch-icon" href="/static/favicon.png"/>
     <!-- Bootstrap core CSS -->
-    <link href="/static/bootstrap/css/bootstrap.darkly.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.darkly.min.css"/>
+	<link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
+	<link rel="apple-touch-icon" type="image/png" href="/static/favicon.png"/>
 	<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen"/>
     <title>{% block title %}Mu Katta{% endblock %}</title>
     {% block scripts_head %}{% endblock %}
@@ -25,7 +24,7 @@
     <nav class="navbar navbar-default col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12" role="navigation">
         <div class="container-fluid" id="navfluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigationbar">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation_bar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -33,26 +32,40 @@
             </button>
             <a class="navbar-brand" href="{% url 'about' %}">Mu Katta</a>
        </div>
-        <div class="collapse navbar-collapse" id="navigationbar">
-            <ul class="nav navbar-nav">
-                <li><a href="{% url 'cabshare_index' %}">Cabshare</a></li>
-                <li><a href="#">RoomReq (coming soon...)</a></li>
-                <li class="divider"></li>
+        <div class="collapse navbar-collapse" id="navigation_bar">
+            <ul class="nav navbar-nav" id="cabshare_navigation">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">CabShare</a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url 'cabshare_index' %}">Home</a></li>
+                    <li><a href="{% url 'cabshare:my_posts' %}">My posts</a></li>
+                    <li><a href="{% url 'cabshare:new_post' %}">New Post</a></li>
+                  </ul>
+                </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right" id="navigationbar">
-                <li><a href="/user/{{ request.user.username }}/" class="navbar-link"></a></li>
+            <ul class="nav navbar-nav" id="roomreq_navigation">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">RoomReq</a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{# url 'roomreq_index' #}">Home</a></li>
+                    <li><a href="{# url 'roomreq:my_posts' #}">My posts</a></li>
+                    <li><a href="{# url 'roomreq:new_post' #}">New Post</a></li>
+                  </ul>
+                </li>
+            </ul>
+            {% if request %}{% if request.user %}{% if request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right" id="account_navigation">
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="glyphicon glyphicon-cog"></i></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="/user/{{ request.user.username }}/">My details</a></li>
+                    <li><a href="{% url 'user_index' %}">My details</a></li>
                     <li><a href="{% url 'user:password_change_form' %}">Change password</a></li>
-                    <li><a href="{% url 'cabshare:my_posts' %}">My Cabshare posts</a></li>
-                    <li><a href="#">My RoomReq posts</a></li>
                     <li class="divider"></li>
                     <li><a href="{% url 'user:logout' %}">Logout</a></li>
                   </ul>
                 </li>
             </ul>
+            {% endif %}{% endif %}{% endif %}
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>

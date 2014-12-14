@@ -1,28 +1,18 @@
 {% extends 'cabshare/base.html' %}
 
 {% block content %}
-        <div id="cabsharebox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        Cab share posts by <a href="/user/{{ request.user.username }}/">{{ request.user.first_name }}</a>
-                    </div>
+        <div id="cabsharebox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <h4>Cab share posts by <a href="/user/{{ request.user.username }}/">{{ request.user.first_name }}</a></h4>
+            <div style="padding-top:10px">
+            {% if not posts %}You haven't posted anything yet!{% endif %}
+            {% for post in posts %}
+            <div class="list-group">
+                <div class="list-group-item">
+                <a href="{{ post.url }}">To {{ post.destination }} on {{ post.travel_date }}</a>
+                <span style="float:right"><a href="{{ post.url }}edit/">Edit</a></span>
                 </div>
-                {% if not posts %}
-                <div style="padding-top:30px" class="panel-body">
-                    You haven't posted anything yet!
-                </div>
-                {% endif %}
-                <div style="padding-top:30px" class="panel-body">
-                {% for post in posts %}
-                <div class="list-group">
-                    <div class="list-group-item">
-                    <a href="{{ post.url }}">To {{ post.destination }} on {{ post.travel_date }}</a>
-                    <span style="float:right"><a href="{{ post.url }}edit/">Edit</a></span>
-                    </div>
-                </div>
-                {% endfor %}
-                </div>
+            </div>
+            {% endfor %}
             </div>
         </div>
 {% endblock %}

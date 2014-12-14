@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 
 urlpatterns = patterns('',
@@ -16,6 +16,9 @@ urlpatterns = patterns('',
     # Robots page - /robots.txt
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt',
         content_type='text/plain'), name="robots"),
+    # Favicon - /favicon.ico
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.png'),
+        name="favicon"),
 
     # "accounts" app urls
     url(r'^user/', include("djkatta.accounts.urls", namespace='user')),
