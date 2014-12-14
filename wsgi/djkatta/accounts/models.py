@@ -30,3 +30,4 @@ class pass_reset_validb(models.Model):
 
     class Meta:
         verbose_name = "Password Reset Hashtable"
+        ordering = ['-valid_upto',]

@@ -63,11 +63,11 @@ def register(request):
                 user = False
             if user and user.is_active:
                 errors = form._errors.setdefault("username", ErrorList())
-                errors.append("That username is already registered!"
-                              "Forgot password?!")
+                errors.append("That username is already registered! "
+                              "Did you reset your password yet?")
             elif not usernm:
                 errors = form._errors.setdefault("username", ErrorList())
-                errors.append("We have ample of space, no need for more!"
+                errors.append("We have ample of space, no need for more! "
                               "Enter a valid username?!")                
             else:
                 passwd = generate_random_string()
@@ -83,7 +83,6 @@ def register(request):
                 send_pass_reset_mail(validb.username, validb.valid_hash, reg=True)
                 message = "Check your Mu Sigma email for further instructions."
                 return message_box(request, message)
-    # else
     return render_to_response('accounts/register.html', locals(),
                               RequestContext(request))
 
@@ -133,7 +132,7 @@ def password_change_success(request):
 def validate_pass_reset_req(username="", given_hash="", delete=False):
     if username and given_hash:
         try:
-            reset_req = pass_reset_validb.objects.get(username=username)
+            reset_req = pass_reset_validb.objects.filter(username=username)[0]
             if delete:
                 reset_req.delete()
             else:
