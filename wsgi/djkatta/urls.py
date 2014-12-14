@@ -27,4 +27,8 @@ urlpatterns = patterns('',
     # "cabshare" app urls
     url(r'^cabshare/', include("djkatta.cabshare.urls", namespace='cabshare')),
     url(r'^cabshare/$', 'djkatta.cabshare.views.index', name="cabshare_index"),
+
+    # "roomreq" app urls
+    url(r'^roomreq/', include("djkatta.roomreq.urls", namespace='roomreq')),
+    url(r'^roomreq/$', 'djkatta.roomreq.views.index', name="roomreq_index"),    
 )

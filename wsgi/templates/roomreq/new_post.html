@@ -1,0 +1,142 @@
+{% extends 'cabshare/base.html' %}
+
+{% block scripts_head %}
+    <style>
+        html {
+           overflow-y: scroll; /*for vertical scroll bar*/
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+        <div id="cabsharebox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <center><h4>New cab sharing requirement</h4></center>
+            <div style="padding-top:10px">
+                {# Display the form #}
+                <form id="form" action="{% url 'cabshare:new_post' %}" method="post" class="form-horizontal">
+                    {% csrf_token %}
+
+                    <center>
+                    <div class="input-group form_concise">
+                        <!--<span class="input-group-addon">
+                            <i class="glyphicon glyphicon-off"></i>
+                        </span>-->
+                        <select id="id_req_open" class="form-control" name="req_open" title="Requirement status of the post">
+                            <option title="The post will be visible to other users." value="O">Open</option>
+                            <option disabled="disabled" title="This will hide the post from other users. A post can be re-opened!" value="C">Closed</option>
+                        </select>
+                    </div>
+                    </center>
+
+                    <div class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-earphone"></i>
+                        </span>
+                        <input id="id_contact_number" type="text" class="form-control" name="contact_number" value="" placeholder="Contact number (optional)" title="This form field is optional" autofocus/>
+                    </div>
+
+                    <div class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                        </span>
+                        <input id="id_destination" type="text" class="form-control" name="destination" value="" placeholder="Destination / drop point" required="required" title="Where will the cab drop you off?"/>
+                    </div>
+
+                    <div class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-time"></i>
+                        </span>
+                        <input id="id_travel_date" type="date" value="{{ disp_date }}" class="form-control" name="travel_date" required="required" title="Date on which cab is required"/>
+                        <input id="id_travel_time" type="time" value="20:00" class="form-control" name="travel_time" required="required" title="Time at which cab required (latest)"/>
+                    </div>
+
+                    <center>
+                    <div class="input-group form_concise">
+                    <div class="checkbox">
+                        <label>
+                        <input id="id_already_booked" type="checkbox" name="already_booked" title="Already made arrangements?"/> I have already booked a cab!
+                        </label>
+                    </div>
+                    </div>
+                    </center>
+
+                    <div id="div_id_pickup_from" class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                        </span>
+                        <input id="id_pickup_from" type="text" class="form-control" name="pickup_from" value="" placeholder="Pickup location" title="Where will the cab pick you up?"/>
+                    </div>
+
+                    <div id="div_id_estimated_cost" class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-usd"></i>
+                        </span>
+                        <input id="id_estimated_cost" type="number" class="form-control" name="estimated_cost" value="" placeholder="Estimated cost (in Rs.)" title="What is the estimated cost for the trip?"/>
+                    </div>
+
+                    <div id="div_id_passengers" class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                        <input id="id_passengers" type="number" class="form-control" name="passengers" placeholder="No. of co-passengers (0, 1, etc.)" title="How many other passengers are accompanying you on the trip?"/>
+                    </div>
+
+                    <div id="div_id_cab_company" class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-font"></i>
+                        </span>
+                        <input id="id_cab_company" type="text" class="form-control" name="cab_company" value="" placeholder="Cab provider (Uber, Ola, etc.)" title="Which company is the cab provider?"/>
+                    </div>
+
+                    <div id="div_id_cab_type" class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-resize-horizontal"></i>
+                        </span>
+                        <input id="id_cab_type" type="text" class="form-control" name="cab_type" value="" placeholder="Cab type (mini, sedan, rickshaw, etc.)" title="Which type of cab did you book?"/>
+                    </div>
+
+                    <center>
+                    <div class="form-group form_spaced" style="margin-top: 25px;">
+                        <!-- Button -->
+                        <div class="col-sm-12 controls">
+                            <button type="submit" class="btn btn-danger">Post</button>
+                        </div>
+                    </div>
+                    </center>
+
+                </form>
+            </div>
+        </div>
+{% endblock %}
+
+{% block scripts_body %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/static/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+
+        $("#div_id_pickup_from").hide();
+        $("#div_id_estimated_cost").hide();
+        $("#div_id_passengers").hide();
+        $("#div_id_cab_company").hide();
+        $("#div_id_cab_type").hide();
+
+        $('#id_already_booked').change(function() {
+            if ($(this).is(":checked")) {
+                $("#div_id_pickup_from").show();
+                $("#div_id_estimated_cost").show();
+                $("#div_id_passengers").show();
+                $("#div_id_cab_company").show();
+                $("#div_id_cab_type").show();
+            }
+            else {
+                $("#div_id_pickup_from").hide();
+                $("#div_id_estimated_cost").hide();
+                $("#div_id_passengers").hide();
+                $("#div_id_cab_company").hide();
+                $("#div_id_cab_type").hide();
+            }
+        });
+    </script>
+{% endblock %}
