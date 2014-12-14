@@ -33,14 +33,14 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-earphone"></i>
                             </span>
-                            <input id="id_contact_number" type="text" class="form-control" name="contact_number" value="{{ form.contact_number.value }}" placeholder="Contact number" title="This form field is optional" autofocus/>
+                            <input id="id_contact_number" type="text" class="form-control" name="contact_number" value="{{ form.contact_number.value }}" placeholder="Contact number" title="Contact number (optional)" autofocus/>
                         </div>
 
                         <div class="input-group form_concise">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-map-marker"></i>
                             </span>
-                            <input id="id_destination" type="text" class="form-control" name="destination" value="{{ form.destination.value }}" placeholder="Destination / drop point" required="required" title="Where will the cab drop you off?"/>
+                            <input id="id_destination" type="text" class="form-control" name="destination" value="{{ form.destination.value }}" placeholder="Destination / drop point" required="required" title="Destination - Where will the cab drop you off?"/>
                         </div>
 
                         <div class="input-group form_concise">
@@ -55,7 +55,7 @@
                         <div class="input-group form_concise">
                         <div class="checkbox">
                             <label>
-                            <input id="id_already_booked" type="checkbox" name="already_booked" title="Already made arrangements?" {% if form.already_booked.value %}checked="checked"{% endif %}/> I have already booked a cab!
+                            <input id="id_already_booked" type="checkbox" name="already_booked" title="Already arranged a cab?" {% if form.already_booked.value %}checked="checked"{% endif %}/> I have already booked a cab!
                             </label>
                         </div>
                         </div>
@@ -72,7 +72,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-usd"></i>
                             </span>
-                            <input id="id_estimated_cost" type="number" class="form-control" name="estimated_cost" value="{{ form.estimated_cost.value }}" placeholder="Estimated cost (in Rs.)" title="What is the estimated cost for the trip?"/>
+                            <input id="id_estimated_cost" type="number" class="form-control" name="estimated_cost" value="{{ form.estimated_cost.value }}" placeholder="Estimated cost (in Rs.)" title="What is the estimated cost for the trip? (in Rs.)"/>
                         </div>
 
                         <div id="div_id_passengers" class="input-group form_concise">
@@ -93,7 +93,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-resize-horizontal"></i>
                             </span>
-                            <input id="id_cab_type" type="text" class="form-control" name="cab_type" value="{{ form.cab_type.value }}" placeholder="Cab type (mini, sedan, rickshaw, etc.)" title="Which type of cab did you book?"/>
+                            <input id="id_cab_type" type="text" class="form-control" name="cab_type" value="{{ form.cab_type.value }}" placeholder="Cab type (mini, sedan, rickshaw, etc.)" title="Which type of cab did you book? (mini, sedan, etc.)"/>
                         </div>
 
                         <center>
@@ -123,8 +123,10 @@
     <script>
         $("#id_travel_date").attr("class", "form-control");
         $("#id_travel_date").attr("type", "date");
+        $("#id_travel_date").attr("title", "Date on which cab is required (YYYY-MM-DD)");
         $("#id_travel_time").attr("class", "form-control");
         $("#id_travel_time").attr("type", "time");
+        $("#id_travel_time").attr("title", "Time at which cab required (latest)");
 
         {% if not form.already_booked.value %}
             $("#div_id_pickup_from").hide();
