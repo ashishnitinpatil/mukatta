@@ -2,16 +2,14 @@
 git push origin master
 
 ## If it's not a hot deploy
+rhc env set EMAIL_HOST_PASSWORD="secret" SECRET_KEY="secret" -a mukatta
+
+## For every git push
 # SSH into remote rhcloud instance
 rhc ssh -a mukatta
-# Create a secrets.py
-cd $OPENSHIFT_REPO_DIR
-cd wsgi/djkatta
-touch secrets.py
-vim secrets.py
 # Syncdb & create a root user
 cd $OPENSHIFT_REPO_DIR
-python wsgi/manage.py syncdb
+python wsgi/manage.py migrate
 # collect static content for django admin
 python wsgi/manage.py collectstatic
 cp -avr static_temp/admin static/admin
