@@ -5,7 +5,7 @@ git push github master
 git push origin master
 
 ## If it's not a hot deploy
-# set secrets as env vars
+# set secrets as env vars (%% = % (escape char))
 rhc env set EMAIL_HOST_PASSWORD="secret" SECRET_KEY="secret" -a mukatta
 # create super user
 cd $OPENSHIFT_REPO_DIR
