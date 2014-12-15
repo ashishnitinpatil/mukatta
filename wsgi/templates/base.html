@@ -20,7 +20,7 @@
     {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
 
-    {% block nav_bar %}
+    {% block nav_bar %}{% if request.user.is_authenticated %}
     <nav class="navbar navbar-default col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2" role="navigation">
         <div class="container-fluid" id="navfluid">
         <div class="navbar-header">
@@ -69,7 +69,7 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-    {% endblock %}
+    {% endif %}{% endblock %}
     {% block content %}{% endblock %}
     </div>
 {% endblock %}
