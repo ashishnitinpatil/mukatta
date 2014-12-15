@@ -16,6 +16,15 @@
                 <form id="form" action="{% url 'cabshare:new_post' %}" method="post" class="form-horizontal">
                     {% csrf_token %}
 
+                    {% if form.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        &times;
+                        </button>
+                        There was some problem submitting the post!
+                    </div>
+                    {% endif %}
+
                     <center>
                     <div class="input-group form_concise">
                         <!--<span class="input-group-addon">

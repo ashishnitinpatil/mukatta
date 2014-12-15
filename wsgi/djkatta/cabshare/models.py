@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.core.urlresolvers import reverse
+import datetime
 
 
 class CabManager(models.Manager):
     def get_queryset(self):
-        return super(CabManager, self).get_queryset().filter(req_open='O')
+        now = datetime.datetime.today() - datetime.timedelta(hours=1)
+        return super(CabManager, self).get_queryset().filter(req_open='O').filter(travel_date__gt=now)
 
 
 class cab_sharing(models.Model):
@@ -24,6 +26,9 @@ class cab_sharing(models.Model):
                                       help_text="Contact number (optional)")
     travel_date = models.DateField(null=True, help_text="Date on which cab is required")
     travel_time = models.TimeField(null=True, help_text="Time when cab is required")
+    # save both date & time into datetime (combine during save)
+    travel_datetime = models.DateTimeField(null=True, blank=True, help_text="Internal field")
+
     destination = models.CharField(default="Airport", max_length=64)
     already_booked = models.BooleanField(default=False, help_text="Already booked a cab?")
 
@@ -38,7 +43,7 @@ class cab_sharing(models.Model):
 
     # default manager
     objects = models.Manager()
-    # custom manager to account for default filtering of closed posts
+    # custom manager for filtering of "closed" & "old but open" posts
     active = CabManager()
 
     def __unicode__(self):
@@ -54,6 +59,15 @@ class cab_sharing(models.Model):
             self.cab_company = ""
             self.cab_type = ""
             self.passengers = None
+        if not self.travel_date:
+            now = datetime.datetime.today()
+            self.travel_date = now.date()
+            if not self.travel_time:
+                self.travel_time = now.time()
+        if not self.travel_time:
+            self.travel_time = datetime.time(20) # 8 pm
+        self.travel_datetime = datetime.datetime.combine(self.travel_date,
+                                                         self.travel_time)
         super(cab_sharing, self).save(*args, **kwargs)
 
     class Meta:
