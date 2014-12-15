@@ -18,7 +18,7 @@ def get_username_from_email(email=""):
     if "@" in email:
         return email.split("@")[0]
     else:
-        return ""
+        return email
 
 
 def get_email_from_username(usernm=""):
@@ -26,7 +26,7 @@ def get_email_from_username(usernm=""):
     if not "@" in usernm:
         return usernm + "@mu-sigma.com"
     else:
-        return ""
+        return usernm
 
 
 def send_pass_reset_mail(usernm="", valid_hash="", to="", reg=False):
