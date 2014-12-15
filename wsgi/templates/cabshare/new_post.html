@@ -9,21 +9,21 @@
 {% endblock %}
 
 {% block content %}
-        <div id="cabsharebox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div id="cabsharebox" class="mainbox col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
             <center><h4>New cab sharing requirement</h4></center>
             <div style="padding-top:10px">
                 {# Display the form #}
                 <form id="form" action="{% url 'cabshare:new_post' %}" method="post" class="form-horizontal">
                     {% csrf_token %}
 
-                    {% if form.errors %}
+                    {% if request.POST %}{% if form.errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         &times;
                         </button>
                         There was some problem submitting the post!
                     </div>
-                    {% endif %}
+                    {% endif %}{% endif %}
 
                     <center>
                     <div class="input-group form_concise">

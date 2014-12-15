@@ -1,7 +1,7 @@
 {% extends 'cabshare/base.html' %}
 
 {% block content %}
-        <div id="cabsharebox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div id="cabsharebox" class="mainbox col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
             <h4>Cab sharing req.{% if cur_post %} - <a href="/cabshare/{{ cur_post.id }}/">{{ cur_post.id }}</a>{% endif %}
                 {% if cur_post %}{% if cur_post.editable %}
                     <span style="float:right;"><a href="{{ cur_post_url }}edit/">Edit</a></span>

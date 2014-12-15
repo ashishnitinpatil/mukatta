@@ -151,6 +151,8 @@ def password_reset_req(request):
         form = PasswordResetRequestForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username'].strip()
+            if '@' in username:
+                username = username[:username.find('@')]
             try:
                 reset_req = pass_reset_validb.objects.get(username=username)
                 if reset_req.valid_upto:
