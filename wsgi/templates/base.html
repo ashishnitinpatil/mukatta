@@ -16,12 +16,12 @@
 </head>
 <body>
 {% block body %}
-    <div id="main_wrapper" class="container">
+    <div id="main_wrapper" class="container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
     {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
 
     {% block nav_bar %}
-    <nav class="navbar navbar-default col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12" role="navigation">
+    <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid" id="navfluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation_bar">
