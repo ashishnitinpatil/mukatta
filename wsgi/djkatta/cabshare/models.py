@@ -18,7 +18,7 @@ class cab_sharing(models.Model):
         ('O', 'Open'),
         ('C', 'Closed'),
     )
-    req_open = models.CharField(default=True, choices=req_status_choices,
+    req_open = models.CharField(default="O", choices=req_status_choices,
                                 max_length=2, help_text="Status of the request",
                                 verbose_name="Request Status")
 
