@@ -1,0 +1,1 @@
+Placeholders.js is licensed under the MIT License (http://en.wikipedia.org/wiki/MIT_License). See the unminified file for the full license text.
