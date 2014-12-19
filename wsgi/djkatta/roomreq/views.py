@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
-# from djkatta.roomreq.forms import
+from djkatta.roomreq.forms import RoomReqForm
 
 
 @login_required
@@ -13,7 +13,7 @@ def index(request):
                               RequestContext(request))
 
 
-# @csrf_protect
+@csrf_protect
 @login_required
 def new_post(request):
     """New roomreq post"""

@@ -1,8 +1,26 @@
-{% extends 'roomreq/base.html' %}
+{% extends 'base.html' %}
+
+{% block title %}RoomReq - Home{% endblock %}
 
 {% block content %}
-        <div id="roomreqbox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            The room of requirements is under construction...<br>
-            Going across thrice with the right thoughts in mind won't work here, not yet.
+        <div id="roomreqbox" class="mainbox col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <center><a class="btn btn-info" href="{% url 'roomreq:new_post' %}">Post new req.</a></center>
+            <center><h4>Latest RoomReq posts</h4></center>
+            <div style="margin-top:10px; margin-bottom:25px;">
+                <div class="list-group">
+                {% if not posts %}
+                    <div class="list-group-item">
+                        No active RoomReq posts at the moment.
+                    </div>
+                {% endif %}
+                {% for post in posts %}
+                        <div class="list-group-item" style="margin-bottom:10px;">
+                        To {{ post.destination }} on {{ post.travel_date }} {{ post.travel_time }}<br>
+                        - <a href="/user/{{ post.owner.username }}/">{{ post.owner.first_name }} {{ post.owner.last_name }}</a>
+                        <span style="float:right">{% if post.editable %}<a href="{{ post.url }}edit/">Edit</a> | {% endif %}<a href="{{ post.url }}">Details</a></span>
+                        </div>
+                {% endfor %}
+                </div>
+            </div>
         </div>
 {% endblock %}

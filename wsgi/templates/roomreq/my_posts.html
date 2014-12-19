@@ -1,7 +1,9 @@
-{% extends 'cabshare/base.html' %}
+{% extends 'base.html' %}
+
+{% block title %}CabShare - My Posts{% endblock %}
 
 {% block content %}
-        <div id="cabsharebox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div id="cabsharebox" class="mainbox col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
             <center><h4>Cab share posts by <a href="/user/{{ request.user.username }}/">{{ request.user.first_name }}</a></h4></center>
             <div class="list-group" style="margin-top:25px; margin-bottom:25px;">
             {% if not posts %}
