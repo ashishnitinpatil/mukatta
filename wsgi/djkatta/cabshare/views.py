@@ -25,7 +25,7 @@ def index(request):
 
 @login_required
 def my_posts(request):
-    """User home"""
+    """All posts by the user"""
     posts = cab_sharing.objects.filter(owner=request.user)
     for post in posts:
         post.url = post.get_post_url()
@@ -52,6 +52,10 @@ def indi(request, post_id=None):
     """Individual post view"""
     try:
         cur_post = cab_sharing.objects.get(id=post_id)
+        if cur_post.req_open == "O":
+            active = True
+        else:
+            active = False
         cur_post_url = cur_post.get_post_url()
         if cur_post.owner == request.user:
             cur_post.editable = True
@@ -90,7 +94,6 @@ def edit(request, post_id=None):
             cur_post.owner = request.user
             if form.is_valid():
                 cur_post = form.save(commit=False)
-                cur_post.owner = request.user
                 cur_post.id = post_id
                 cur_post.save()
                 messages.info(request, 'Post successfully updated.')

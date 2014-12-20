@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}RoomReq - New post{% endblock %}
+
 {% block scripts_head %}
     <style>
         html {
@@ -9,11 +11,11 @@
 {% endblock %}
 
 {% block content %}
-        <div id="cabsharebox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-            <center><h4>New cab sharing requirement</h4></center>
+        <div id="roomreqbox" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+            <center><h4>New RoomReq post</h4></center>
             <div style="padding-top:10px">
                 {# Display the form #}
-                <form id="form" action="{% url 'cabshare:new_post' %}" method="post" class="form-horizontal">
+                <form id="form" action="{% url 'roomreq:new_post' %}" method="post" class="form-horizontal">
                     {% csrf_token %}
 
                     <center>
@@ -29,6 +31,15 @@
                     </center>
 
                     <div class="input-group form_concise">
+                        <span class="input-group-addon">Availability for</span>
+                        <select id="id_gender_req" class="form-control" name="gender_req" title="Flatmate gender requirement">
+                            <option title="Requirement is for male colleagues only" value="M">Males only</option>
+                            <option title="Requirement is for female colleagues only" value="F">Females only</option>
+                            <option title="No gender preference! :)" value="A">Any gender</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group form_concise">
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-earphone"></i>
                         </span>
@@ -39,61 +50,48 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-map-marker"></i>
                         </span>
-                        <input id="id_destination" type="text" class="form-control" name="destination" value="" placeholder="Destination / drop point" required="required" title="Where will the cab drop you off?"/>
+                        <input id="id_locality" type="text" class="form-control" name="locality" value="" placeholder="Locality / Society name" required="required" title="e.g. Prestige Shantiniketan"/>
                     </div>
 
-                    <div class="input-group form_concise">
+                    <div id="div_id_rent" class="input-group form_concise">
                         <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-time"></i>
+                            <i class="glyphicon glyphicon-usd"></i>
                         </span>
-                        <input id="id_travel_date" type="date" value="{{ disp_date }}" class="form-control" name="travel_date" required="required" title="Date on which cab is required"/>
-                        <input id="id_travel_time" type="time" value="20:00" class="form-control" name="travel_time" required="required" title="Time at which cab required (latest)"/>
+                        <input id="id_rent" type="number" class="form-control" name="rent" value="" placeholder="Rent (in Rs.)" required="required" title="Rent (make required assumptions for sharing)"/>
+                    </div>
+
+                    <div id="div_id_deposit" class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-usd"></i>
+                        </span>
+                        <input id="id_deposit" type="number" class="form-control" name="deposit" value="" placeholder="Deposit (in Rs.)" required="required" title="Deposit (e.g. 25000 or 0 if not required)"/>
+                    </div>
+
+                    <div id="div_id_vacancies" class="input-group form_concise">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                        <input id="id_vacancies" type="number" class="form-control" name="vacancies" value="" placeholder="Total vacancies (no.)" required="required" title="Number of vacancies in your flat (no. of persons)"/>
                     </div>
 
                     <center>
                     <div class="input-group form_concise">
                     <div class="checkbox">
                         <label>
-                        <input id="id_already_booked" type="checkbox" name="already_booked" title="Already made arrangements?"/> I have already booked a cab!
+                        <input id="id_immediate_possession" type="checkbox" name="immediate_possession" title="Can the new flatmate move-in right away?" checked="checked"/> Available for immediate possession!
                         </label>
                     </div>
                     </div>
                     </center>
 
-                    <div id="div_id_pickup_from" class="input-group form_concise">
+                    <div id="div_id_available_from" class="input-group form_concise">
                         <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-map-marker"></i>
+                            <i class="glyphicon glyphicon-calendar"></i>
                         </span>
-                        <input id="id_pickup_from" type="text" class="form-control" name="pickup_from" value="" placeholder="Pickup location" title="Where will the cab pick you up?"/>
+                        <input id="id_available_from" type="date" value="{{ disp_date }}" class="form-control" name="available_from" required="required" title="Date from which possession will be available"/>
                     </div>
 
-                    <div id="div_id_estimated_cost" class="input-group form_concise">
-                        <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-usd"></i>
-                        </span>
-                        <input id="id_estimated_cost" type="number" class="form-control" name="estimated_cost" value="" placeholder="Estimated cost (in Rs.)" title="What is the estimated cost for the trip?"/>
-                    </div>
-
-                    <div id="div_id_passengers" class="input-group form_concise">
-                        <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-user"></i>
-                        </span>
-                        <input id="id_passengers" type="number" class="form-control" name="passengers" placeholder="No. of co-passengers (0, 1, etc.)" title="How many other passengers are accompanying you on the trip?"/>
-                    </div>
-
-                    <div id="div_id_cab_company" class="input-group form_concise">
-                        <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-font"></i>
-                        </span>
-                        <input id="id_cab_company" type="text" class="form-control" name="cab_company" value="" placeholder="Cab provider (Uber, Ola, etc.)" title="Which company is the cab provider?"/>
-                    </div>
-
-                    <div id="div_id_cab_type" class="input-group form_concise">
-                        <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-resize-horizontal"></i>
-                        </span>
-                        <input id="id_cab_type" type="text" class="form-control" name="cab_type" value="" placeholder="Cab type (mini, sedan, rickshaw, etc.)" title="Which type of cab did you book?"/>
-                    </div>
+                    <textarea id="id_more_details" class="form-control form_spaced" name="more_details" value="" rows="4" placeholder="Detailed description. Amenities. Single/Double sharing options, etc." title="Provide additional details here"></textarea>
 
                     <center>
                     <div class="form-group form_spaced" style="margin-top: 25px;">
@@ -109,33 +107,16 @@
         </div>
 {% endblock %}
 
-{% block scripts_body %}
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/static/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+{% block scripts_body_extra %}
     <script>
+        $("#div_id_available_from").hide();
 
-        $("#div_id_pickup_from").hide();
-        $("#div_id_estimated_cost").hide();
-        $("#div_id_passengers").hide();
-        $("#div_id_cab_company").hide();
-        $("#div_id_cab_type").hide();
-
-        $('#id_already_booked').change(function() {
+        $('#id_immediate_possession').change(function() {
             if ($(this).is(":checked")) {
-                $("#div_id_pickup_from").show();
-                $("#div_id_estimated_cost").show();
-                $("#div_id_passengers").show();
-                $("#div_id_cab_company").show();
-                $("#div_id_cab_type").show();
+                $("#div_id_available_from").hide();
             }
             else {
-                $("#div_id_pickup_from").hide();
-                $("#div_id_estimated_cost").hide();
-                $("#div_id_passengers").hide();
-                $("#div_id_cab_company").hide();
-                $("#div_id_cab_type").hide();
+                $("#div_id_available_from").show();
             }
         });
     </script>

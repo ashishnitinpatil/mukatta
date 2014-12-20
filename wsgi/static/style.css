@@ -33,6 +33,10 @@ a:hover {
     margin-bottom: 25px;
 }
 
+.form-control {
+    width: 100%;
+}
+
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,

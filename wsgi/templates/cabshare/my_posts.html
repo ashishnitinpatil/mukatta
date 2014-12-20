@@ -13,7 +13,7 @@
             {% endif %}
             {% for post in posts %}
                 <div class="list-group-item" style="margin-bottom:10px;">
-                    <a href="{{ post.url }}">To {{ post.destination }} on {{ post.travel_date }}</a>
+                    <a href="{{ post.url }}">To {{ post.destination }} on {{ post.travel_date }}</a>{% if post.contact_number %} ({{ post.contact_number }}){% endif %}
                     <span style="float:right"><a href="{{ post.url }}edit/">Edit</a></span>
                 </div>
             {% endfor %}

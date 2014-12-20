@@ -4,7 +4,7 @@
 
 {% block content %}
         <div id="cabsharebox" class="mainbox col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
-            <h4>Cab sharing req.{% if cur_post %} - <a href="/cabshare/{{ cur_post.id }}/">{{ cur_post.id }}</a>{% endif %}
+            <h4>Cab sharing req.{% if cur_post %} - <a href="{{ cur_post_url }}">{{ cur_post.id }}</a>{% endif %}
                 {% if cur_post %}{% if cur_post.editable %}
                     <span style="float:right;"><a href="{{ cur_post_url }}edit/">Edit</a></span>
                 {% endif %}{% endif %}
@@ -16,7 +16,11 @@
         {% else %}
             <table class="table table-bordered">
                 <tr>
-                    <td>Name</td>
+                    <td>Status</td>
+                    <td>{% if active %}Active{% else %}Closed{% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Posted by</td>
                     <td><a href="/user/{{ cur_post.owner.username }}/">{{ cur_post.owner.first_name }} {{ cur_post.owner.last_name }}</a></td>
                 </tr>
                 {% if cur_post.contact_number %}

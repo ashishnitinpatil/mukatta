@@ -14,11 +14,11 @@
                     </div>
                 {% endif %}
                 {% for post in posts %}
-                        <div class="list-group-item" style="margin-bottom:10px;">
-                        To {{ post.destination }} on {{ post.travel_date }} {{ post.travel_time }}<br>
-                        - <a href="/user/{{ post.owner.username }}/">{{ post.owner.first_name }} {{ post.owner.last_name }}</a>
-                        <span style="float:right">{% if post.editable %}<a href="{{ post.url }}edit/">Edit</a> | {% endif %}<a href="{{ post.url }}">Details</a></span>
-                        </div>
+                    <div class="list-group-item" style="margin-bottom:10px;">
+                    Vacancy for {{ post.vacancies }}{% if post.gender_cont %} {{ post.gender_cont }}{{ post.gender_plural }}{% endif %} at {{ post.locality }} for Rs. {{ post.rent }}/mo. (Deposit - Rs. {{ post.deposit }})<br>
+                    - <a href="/user/{{ post.owner.username }}/">{{ post.owner.first_name }} {{ post.owner.last_name }}</a>{% if post.contact_number %} ({{ post.contact_number }}){% endif %}
+                    <span style="float:right">{% if post.editable %}<a href="{{ post.url }}edit/">Edit</a> | {% endif %}<a href="{{ post.url }}">Details</a></span>
+                    </div>
                 {% endfor %}
                 </div>
             </div>

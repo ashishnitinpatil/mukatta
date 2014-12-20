@@ -30,5 +30,5 @@ urlpatterns = patterns('',
 
     # "roomreq" app urls
     url(r'^roomreq/', include("djkatta.roomreq.urls", namespace='roomreq')),
-    url(r'^roomreq/$', 'djkatta.roomreq.views.index', name="roomreq_index"),    
+    url(r'^roomreq/$', 'djkatta.roomreq.views.index', name="roomreq_index"),
 )

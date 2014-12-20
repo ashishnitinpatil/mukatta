@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}CabShare - My Posts{% endblock %}
+{% block title %}RoomReq - My Posts{% endblock %}
 
 {% block content %}
-        <div id="cabsharebox" class="mainbox col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
-            <center><h4>Cab share posts by <a href="/user/{{ request.user.username }}/">{{ request.user.first_name }}</a></h4></center>
+        <div id="roomreqbox" class="mainbox col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <center><h4>RoomReq posts by <a href="/user/{{ request.user.username }}/">{{ request.user.first_name }}</a></h4></center>
             <div class="list-group" style="margin-top:25px; margin-bottom:25px;">
             {% if not posts %}
                 <div class="list-group-item" style="margin-bottom:10px;">
@@ -13,7 +13,7 @@
             {% endif %}
             {% for post in posts %}
                 <div class="list-group-item" style="margin-bottom:10px;">
-                    <a href="{{ post.url }}">To {{ post.destination }} on {{ post.travel_date }}</a>
+                    <a href="{{ post.url }}">Vacancy for {{ post.vacancies }}{% if post.gender_cont %} {{ post.gender_cont }}{{ post.gender_plural }}{% endif %} at {{ post.locality }}</a>{% if post.contact_number %} ({{ post.contact_number }}){% endif %}
                     <span style="float:right"><a href="{{ post.url }}edit/">Edit</a></span>
                 </div>
             {% endfor %}
