@@ -195,7 +195,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mu.katta.anp@gmail.com'
 DEFAULT_FROM_EMAIL = 'mu.katta.anp@gmail.com'
 # For development purposes (disable in production)
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 # Google NoCaptchaReCaptcha site key
 NOCAPTCHA_KEY = "6Leejf8SAAAAACW3bQ-a91juUWJIdIK2DAjhFes7"
