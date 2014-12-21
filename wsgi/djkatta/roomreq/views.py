@@ -12,7 +12,33 @@ from djkatta.roomreq.models import room_requirement
 @login_required
 def index(request):
     """Landing page."""
-    posts = room_requirement.active.all()
+    # Get the active posts as per the filters & sorting
+    filter_by = request.GET.get('filter_by', 'N')
+    sort_by   = request.GET.get('sort_by', 'M')
+    # flag (if filtered, it will contain objects, not otherwise)
+    posts = None
+    sort_by_dict = {"R":"rent", "D":"deposit"}
+    if not filter_by and not sort_by:
+        # just get all the active posts
+        posts = room_requirement.active.all()
+    else:
+        # Itni mehnat sirf no. of SQL calls kam karne ke liye
+        if filter_by in {"A", "Fo", "Mo"}:
+            if sort_by in {"R", "D"}:
+                posts = room_requirement.active.all().filter(gender_req=filter_by[0]).order_by(sort_by_dict[sort_by])
+            else:
+                posts = room_requirement.active.all().filter(gender_req=filter_by[0])
+        elif filter_by in {"F", "M"}:
+            if sort_by in {"R", "D"}:
+                posts = room_requirement.active.all().filter(gender_req__in=(filter_by,"A")).order_by(sort_by_dict[sort_by])
+            else:
+                posts = room_requirement.active.all().filter(gender_req__in=(filter_by,"A"))
+        else:
+            if sort_by in {"R", "D"}:
+                posts = room_requirement.active.all().order_by(sort_by_dict[sort_by])
+            else:
+                posts = room_requirement.active.all()
+
     for post in posts:
         post.url = post.get_post_url()
         if post.owner.id == request.user.id:

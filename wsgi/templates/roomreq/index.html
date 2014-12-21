@@ -5,22 +5,60 @@
 {% block content %}
         <div id="roomreqbox" class="mainbox col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
             <center><a class="btn btn-info" href="{% url 'roomreq:new_post' %}">Post new req.</a></center>
-            <center><h4>Latest RoomReq posts</h4></center>
+            <center><h3>Latest RoomReq posts</h3></center>
             <div style="margin-top:10px; margin-bottom:25px;">
-                <div class="list-group">
+                <center>
+                <form id="form" action="#" method="get" class="form-inline form_concise">
+                    <div class="form-group row-md">
+                    <label>Filter for
+                    <select id="id_filter_by" class="form-control" name="filter_by" title="Flatmate gender requirement">
+                        <option title="All posts" value="N">No filter</option>
+                        <option title="Posts for female colleagues only" value="Fo">Females only</option>
+                        <option title="Posts for male colleagues only" value="Mo">Males only</option>
+                        <option title="Posts not for 'males only'" value="F">Females</option>
+                        <option title="Posts not for 'females only'" value="M">Males</option>
+                        <option title="Posts with NO gender restriction" value="A">'Any' only</option>
+                    </select>
+                    </label>
+                    <label>Sort by
+                    <select id="id_sort_by" class="form-control" name="sort_by" title="Sort posts by">
+                        <option title="Latest modified posts" value="M">Latest</option>
+                        <option title="Rent (low to high)" value="R">Rent</option>
+                        <option title="Deposit (low to high)" value="D">Deposit</option>
+                    </select>
+                    </label>
+                    <button type="submit" class="btn btn-info" onclick=search()>Go!</button>
+                    </div>
+                </form>
+                </center>
                 {% if not posts %}
+                    <div class="list-group">
                     <div class="list-group-item">
                         No active RoomReq posts at the moment.
                     </div>
-                {% endif %}
-                {% for post in posts %}
+                {% else %}
+                    <div class="list-group">
+                    {% for post in posts %}
                     <div class="list-group-item" style="margin-bottom:10px;">
                     Vacancy for {{ post.vacancies }}{% if post.gender_cont %} {{ post.gender_cont }}{{ post.gender_plural }}{% endif %} at {{ post.locality }} for Rs. {{ post.rent }}/mo. (Deposit - Rs. {{ post.deposit }})<br>
                     - <a href="/user/{{ post.owner.username }}/">{{ post.owner.first_name }} {{ post.owner.last_name }}</a>{% if post.contact_number %} ({{ post.contact_number }}){% endif %}
                     <span style="float:right">{% if post.editable %}<a href="{{ post.url }}edit/">Edit</a> | {% endif %}<a href="{{ post.url }}">Details</a></span>
                     </div>
-                {% endfor %}
+                    {% endfor %}
+                {% endif %}
                 </div>
             </div>
         </div>
+{% endblock %}
+{% block scripts_body_extra %}
+    <script type="text/javascript">
+        function search() {
+            filter = $("#id_gender_req").value()
+            sort = $("#id_sort_by").value()
+            $(location).attr('href', "{% url 'roomreq_index' %}?"+"filter_by="+filter+"&sort_by="+sort);
+            return false;
+        };
+        $('#id_sort_by').val("{{ sort_by }}");
+        $('#id_filter_by').val("{{ filter_by }}");
+    </script>
 {% endblock %}
