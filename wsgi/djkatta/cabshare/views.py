@@ -95,6 +95,7 @@ def edit(request, post_id=None):
             if form.is_valid():
                 cur_post = form.save(commit=False)
                 cur_post.id = post_id
+                cur_post.owner = request.user
                 cur_post.save()
                 messages.info(request, 'Post successfully updated.')
                 return redirect(cur_post_url)
