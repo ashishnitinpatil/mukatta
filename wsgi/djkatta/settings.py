@@ -100,23 +100,13 @@ else:
     }
 
 
-########################### caching #################################
-# Production Environment
-if ON_OPENSHIFT:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '%s:11211'%os.environ['OPENSHIFT_INTERNAL_IP'],
-        }
+# Caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
     }
-# Development Environment
-else:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '127.0.0.1:11211',
-        }
-    }
+}
 
 
 # Internationalization
