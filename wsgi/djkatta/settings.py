@@ -15,22 +15,25 @@ import urlparse
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+SECRET_KEY = "Secret" # Needs to be defined, non-empty, before everything else
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+# Figure out if we are on production server or local development server
+ON_OPENSHIFT = False
+if os.environ.has_key('OPENSHIFT_REPO_DIR'):
+    ON_OPENSHIFT = True
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = True
+if ON_OPENSHIFT:
+    DEBUG = False
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+TEMPLATE_DEBUG = DEBUG
 
-TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'mukatta-anp.rhcloud.com',
+    '192.168.1.234', # local dev
 ]
 
 APPEND_SLASH = True
@@ -190,16 +193,20 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mu.katta.anp@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'mu.katta.anp@gmail.com'
 # For development purposes (disable in production)
-# EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
-## Google NoCaptchaReCaptcha
-# site key
+# Google NoCaptchaReCaptcha site key
 NOCAPTCHA_KEY = "6Leejf8SAAAAACW3bQ-a91juUWJIdIK2DAjhFes7"
-# secret key
-NOCAPTCHA_SECRET = os.environ.get('NOCAPTCHA_SECRET')
+
+# Dealing with secrets
+if ON_OPENSHIFT:
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    NOCAPTCHA_SECRET = os.environ.get('NOCAPTCHA_SECRET')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+else:
+    from djkatta import secrets
 
 # django Bootstrap3 settings
 BOOTSTRAP3 = {
