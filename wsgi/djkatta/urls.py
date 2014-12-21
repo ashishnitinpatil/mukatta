@@ -4,9 +4,6 @@ from django.views.generic import TemplateView, RedirectView
 
 
 urlpatterns = patterns('',
-    # Django admin urls
-    url(r'^admin/', include(admin.site.urls)),
-
     # Landing page - /
     url(r"^$", "djkatta.views.index", name="index"),
 
@@ -31,4 +28,7 @@ urlpatterns = patterns('',
     # "roomreq" app urls
     url(r'^roomreq/', include("djkatta.roomreq.urls", namespace='roomreq')),
     url(r'^roomreq/$', 'djkatta.roomreq.views.index', name="roomreq_index"),
+
+    # Django admin urls
+    url(r'^admin/', include(admin.site.urls)),
 )
