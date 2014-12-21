@@ -89,8 +89,8 @@ def register(request):
                         username=usernm,
                         password=passwd,
                         email=email,
-                        first_name=form.cleaned_data['first_name'].strip(),
-                        last_name=form.cleaned_data['last_name'].strip(),
+                        first_name=form.cleaned_data['first_name'].strip().title(),
+                        last_name=form.cleaned_data['last_name'].strip().title(),
                     )
                     validb = pass_reset_validb.objects.create(username=usernm)
                     send_pass_reset_mail(validb.username, validb.valid_hash, reg=True)
