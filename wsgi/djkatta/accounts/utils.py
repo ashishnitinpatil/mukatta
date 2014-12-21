@@ -6,6 +6,8 @@ from random import randrange
 from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime
+import urllib
+import json
 
 
 def generate_random_string(chars=6):
@@ -57,3 +59,20 @@ def send_pass_reset_mail(usernm="", valid_hash="", to="", reg=False):
             settings.SERVER_EMAIL, [to,], fail_silently=False
         )
         return True
+
+
+def reCaptcha(self, remote_ip="", captcha_response=""):
+    """Utility for verifying a Google NoCaptchaReCaptcha"""
+
+    SECRET = settings.NOCAPTCHA_SECRET
+    VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify"
+    data = {"secret": SECRET,
+            "remoteip": remote_ip,
+            "response": captcha_response}
+
+    response = urllib.urlopen(url=VERIFY_URL, data=urllib.urlencode(data))
+    captcha_response = json.loads(response.read())
+    if captcha_response["success"] == "true":
+        return True, "Success"
+    else:
+        return False, str(captcha_response["error-codes"])

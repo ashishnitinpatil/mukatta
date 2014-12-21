@@ -2,6 +2,10 @@
 
 {% block title %}Mu Katta - Registration{% endblock %}
 
+{% block scripts_head %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+
 {% block content %}
         <div id="signupbox" style="margin-top:50px" class="mainbox col-xs-12 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
             <div class="panel panel-info">
@@ -21,7 +25,7 @@
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                             &times;
                             </button>
-                            Sorry, unable to process request. Re-registering?!
+                            {% for error in form.username.errors %}{{ error }} {% endfor %}
                         </div>
                         {% endif %}
 
@@ -72,14 +76,18 @@
                         </div>
                         {% endfor %}
 
-                        <div class="input-group">
+                        <div class="input-group form_concise">
                             <div class="checkbox">
                                 <label title="I solemnly swear that I am up to no bad!">
                                     <input id="id_register_swear" type="checkbox"
-                                name="register_swear" title="Sanity check/compulsion" checked="checked"> I promise to be a good netizen. I will not abuse the website or it's users in ANY way.
+                                name="register_swear" title="Sanity check/compulsion" checked="checked"> I won't abuse the website or its users in ANY way.
                                 </label>
                             </div>
                         </div>
+
+                        <!-- Google ReCaptcha div -->
+                        <div class="g-recaptcha" data-sitekey="6Leejf8SAAAAACW3bQ-a91juUWJIdIK2DAjhFes7"></div>
+                        <!-- End of ReCaptcha -->
 
                         <div style="margin-top:10px" class="form-group">
                             <!-- Button -->

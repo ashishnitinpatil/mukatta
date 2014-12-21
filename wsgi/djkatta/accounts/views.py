@@ -15,8 +15,14 @@ from djkatta.accounts.forms import (
 )
 from djkatta.accounts.utils import (
     generate_random_string, get_username_from_email, get_email_from_username,
-    send_pass_reset_mail
+    send_pass_reset_mail, reCaptcha,
 )
+
+
+# template (DRY) for message box rendering
+def message_box(request=None, message="Something went wrong.", redir=settings.LOGIN_URL):
+    messages.success(request, message)
+    return redirect(redir)
 
 
 @csrf_protect
@@ -71,27 +77,31 @@ def register(request):
                 errors = form._errors.setdefault("username", ErrorList())
                 errors.append("Please enter a valid username.")
             else:
-                passwd = generate_random_string()
-                email  = get_email_from_username(usernm)
-                user   = auth.models.User.objects.create_user(
-                    username=usernm,
-                    password=passwd,
-                    email=email,
-                    first_name=form.cleaned_data['first_name'].strip(),
-                    last_name=form.cleaned_data['last_name'].strip(),
-                )
-                validb = pass_reset_validb.objects.create(username=usernm)
-                send_pass_reset_mail(validb.username, validb.valid_hash, reg=True)
-                message = "Check your Mu Sigma email for further instructions."
-                return message_box(request, message)
+                # check for captcha response
+                remote_ip = request.META.get('REMOTE_ADDR', '')
+                captcha_response = request.POST.get('g-captcha-response')
+                captcha_ok, captcha_msg = reCaptcha(remote_ip,captcha_response)
+
+                if captcha_ok:
+                    passwd = generate_random_string()
+                    email  = get_email_from_username(usernm)
+                    user   = auth.models.User.objects.create_user(
+                        username=usernm,
+                        password=passwd,
+                        email=email,
+                        first_name=form.cleaned_data['first_name'].strip(),
+                        last_name=form.cleaned_data['last_name'].strip(),
+                    )
+                    validb = pass_reset_validb.objects.create(username=usernm)
+                    send_pass_reset_mail(validb.username, validb.valid_hash, reg=True)
+                    message = "Check your Mu Sigma email for further instructions."
+                    return message_box(request, message)
+                else:
+                    errors = form._errors.setdefault("username", ErrorList())
+                    errors.append("Invalid captcha request.")
+                    errors.append(captcha_msg)
     return render_to_response('accounts/register.html', locals(),
                               RequestContext(request))
-
-
-# template (DRY) for message box rendering
-def message_box(request=None, message="Something went wrong.", redir=settings.LOGIN_URL):
-    messages.success(request, message)
-    return redirect(redir)
 
 
 def check_mail(request):

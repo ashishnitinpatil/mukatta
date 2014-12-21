@@ -31,7 +31,6 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'mukatta-anp.rhcloud.com',
-    '192.168.1.234', # local dev
 ]
 
 APPEND_SLASH = True
@@ -195,6 +194,12 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'mu.katta.anp@gmail.com'
 # For development purposes (disable in production)
 # EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+## Google NoCaptchaReCaptcha
+# site key
+NOCAPTCHA_KEY = "6Leejf8SAAAAACW3bQ-a91juUWJIdIK2DAjhFes7"
+# secret key
+NOCAPTCHA_SECRET = os.environ.get('NOCAPTCHA_SECRET')
 
 # django Bootstrap3 settings
 BOOTSTRAP3 = {

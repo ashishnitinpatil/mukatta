@@ -18,9 +18,10 @@
 {% block body %}
     <div id="main_wrapper" class="container col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
 
-    {% block nav_bar %}{% if request.user.is_authenticated %}
+    {% block nav_bar %}
     {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
+    {% if request.user.is_authenticated %}
     <nav class="navbar navbar-default col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2" role="navigation">
         <div class="container-fluid" id="navfluid">
         <div class="navbar-header">
