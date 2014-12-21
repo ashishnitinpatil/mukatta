@@ -8,6 +8,7 @@ from django.conf import settings
 from datetime import datetime
 import urllib
 import json
+# import logging
 
 
 def generate_random_string(chars=6):
@@ -61,7 +62,7 @@ def send_pass_reset_mail(usernm="", valid_hash="", to="", reg=False):
         return True
 
 
-def reCaptcha(self, remote_ip="", captcha_response=""):
+def reCaptcha(remote_ip="", captcha_response=""):
     """Utility for verifying a Google NoCaptchaReCaptcha"""
 
     SECRET = settings.NOCAPTCHA_SECRET
@@ -70,9 +71,14 @@ def reCaptcha(self, remote_ip="", captcha_response=""):
             "remoteip": remote_ip,
             "response": captcha_response}
 
-    response = urllib.urlopen(url=VERIFY_URL, data=urllib.urlencode(data))
+    fetch_url = VERIFY_URL + "?secret={0}&response={1}&remoteip={2}".format(
+        SECRET, captcha_response, remote_ip)
+    response = urllib.urlopen(fetch_url)
     captcha_response = json.loads(response.read())
-    if captcha_response["success"] == "true":
+    if captcha_response["success"]:
         return True, "Success"
     else:
-        return False, str(captcha_response["error-codes"])
+        if "error-codes" in captcha_response:
+            return False, str(captcha_response["error-codes"])
+        else:
+            return False, "Unknown error"

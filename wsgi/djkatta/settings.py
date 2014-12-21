@@ -218,7 +218,7 @@ if ON_OPENSHIFT:
     NOCAPTCHA_SECRET = os.environ.get('NOCAPTCHA_SECRET')
     SECRET_KEY = os.environ.get('SECRET_KEY')
 else:
-    from djkatta import secrets
+    from djkatta.secrets import *
 
 # django Bootstrap3 settings
 BOOTSTRAP3 = {

@@ -17,6 +17,7 @@ from djkatta.accounts.utils import (
     generate_random_string, get_username_from_email, get_email_from_username,
     send_pass_reset_mail, reCaptcha,
 )
+# import logging
 
 
 # template (DRY) for message box rendering
@@ -79,7 +80,7 @@ def register(request):
             else:
                 # check for captcha response
                 remote_ip = request.META.get('REMOTE_ADDR', '')
-                captcha_response = request.POST.get('g-captcha-response')
+                captcha_response = request.POST.get('g-recaptcha-response','')
                 captcha_ok, captcha_msg = reCaptcha(remote_ip,captcha_response)
 
                 if captcha_ok:
