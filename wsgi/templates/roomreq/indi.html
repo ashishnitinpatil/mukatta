@@ -53,7 +53,7 @@
                     <td>Immediate Possession</td>
                     <td>{% if cur_post.immediate_possession %}Yes{% else %}No{% endif %}</td>
                 </tr>
-                {% if cur_post.immediate_possession %}
+                {% if not cur_post.immediate_possession %}
                 <tr>
                     <td>Possession from</td>
                     <td>{{ cur_post.available_from }}</td>
