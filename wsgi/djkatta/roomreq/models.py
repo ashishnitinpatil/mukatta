@@ -16,9 +16,8 @@ def get_next_month_first_date():
 
 class RoomManager(models.Manager):
     def get_queryset(self):
-        # 16 days because we are checking with greater than
-        fortnight_ago = datetime.datetime.today().date() - datetime.timedelta(days=16)
-        return super(RoomManager, self).get_queryset().filter(req_open='O').filter(modified_on__gt=fortnight_ago)
+        long_ago = datetime.datetime.today().date() - datetime.timedelta(days=36)
+        return super(RoomManager, self).get_queryset().filter(req_open='O').filter(modified_on__gt=long_ago)
 
 
 class room_requirement(models.Model):
